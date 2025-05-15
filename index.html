@@ -1,19 +1,700 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gambirots</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --primary-blue: #a7d7f9;
+            --secondary-blue: #5fb0e8;
+            --dark-blue: #1e3a8a;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(167, 215, 249, 0.8), rgba(167, 215, 249, 0.8)), url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .nav-link:hover {
+            color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+        
+        .catalan-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235fb0e8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center mr-3">
+                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                </div>
+                <a href="#" class="text-2xl font-bold text-blue-600">Gambirots</a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-blue-600 font-medium transition">Inici</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Qui som</a>
+                <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Esdeveniments</a>
+                <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Galeria</a>
+                <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Uneix-te</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Contacte</a>
+            </div>
+            
+            <button class="md:hidden text-blue-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-white shadow-lg hidden" id="mobileMenu">
+        <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+            <a href="#home" class="nav-link text-blue-600 font-medium py-2 border-b border-gray-100">Inici</a>
+            <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Qui som</a>
+            <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Esdeveniments</a>
+            <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Galeria</a>
+            <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Uneix-te</a>
+            <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2">Contacte</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen flex items-center justify-center text-center text-white py-20">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Gambirots</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Aquí una frase xulesca</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#join" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Uneix-te a nosaltres</a>
+                <a href="#about" class="bg-white px-8 py-3 rounded-full font-bold text-blue-600 inline-block">Aprèn més</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Qui som</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Colla Castellera" class="rounded-lg shadow-xl w-full">
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">La nostra història</h3>
+                    <p class="text-gray-700 mb-6">Un poc de paripé per aquí</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-blue-600 text-3xl mb-2">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">60+ Membres</h4>
+                            <p class="text-sm text-gray-600">universitàris</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#join" class="btn-primary px-6 py-2 rounded-full font-bold text-white inline-block">Descobreix com unir-te</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-blue-50 catalan-pattern">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Esdeveniments</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Consulta el nostre calendari d'activitats, assajos i actuacions</p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Aquest mes</button>
+                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Pròxims</button>
+                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Tots</button>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600 font-bold">15 JUL</span>
+                            <span class="text-sm text-gray-600">10:00 - 14:00</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Assaig general</h3>
+                        <p class="text-gray-700 mb-4">Assaig obert a tots els membres de la colla. Preparació per a la diada.</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Més informació <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Event Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600 font-bold">23 JUL</span>
+                            <span class="text-sm text-gray-600">18:00 - 21:00</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Diada</h3>
+                        <p class="text-gray-700 mb-4">Actuació a la plaça major</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Més informació <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Event Card 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600 font-bold">30 JUL</span>
+                            <span class="text-sm text-gray-600">11:00 - 13:00</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Taller per a nous membres</h3>
+                        <p class="text-gray-700 mb-4">Sessió d'introducció per a persones interessades a unir-se a la colla.</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Més informació <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure tot el calendari</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Galeria</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Records dels nostres millors moments</p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Totes</button>
+                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Actuacions</button>
+                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Assajos</button>
+                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Social</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Gallery items would be populated here -->
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Gallery image" class="w-full h-48 object-cover">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure més fotos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join" class="py-20 bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Uneix-te a nosaltres</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+                <p class="max-w-2xl mx-auto mt-4">Forma part de la nostra família castellera. No importa la teva experiència, tothom és benvingut!</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6">Com unir-te</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="font-bold">1</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Assisteix a un assaig</h4>
+                                <p>Vine a conèixer-nos en un dels nostres assajos setmanals. Cada dimecres i divendres a les 19:00 a la rotonda del Parc Bit</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="font-bold">2</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Parla amb nosaltres</h4>
+                                <p>Els nostres responsables t'explicaran com funcionem i respondran a totes les teves preguntes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="font-bold">3</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Formalitza la inscripció</h4>
+                                <p>Un cop decidit, només cal omplir una fitxa i pagar la quota anual (que inclou assegurança i equipació bàsica).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 bg-blue-700 p-6 rounded-lg">
+                        <h4 class="font-bold text-xl mb-4">Proper taller d'iniciació</h4>
+                        <p class="mb-4">30 de juliol - 11:00h a 13:00h</p>
+                        <a href="#contact" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold inline-block">Inscriu-te ara</a>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6">Preguntes freqüents</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="border-b border-blue-500 pb-4">
+                            <button class="flex justify-between items-center w-full text-left font-bold">
+                                <span>Quins són els requisits per unir-se?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="mt-2 hidden">
+                                <p>No hi ha requisits específics. Només necessites ganes d'aprendre i treballar en equip. Per als menors, és necessari el consentiment dels pares o tutors.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border-b border-blue-500 pb-4">
+                            <button class="flex justify-between items-center w-full text-left font-bold">
+                                <span>Quina és la quota anual?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="mt-2 hidden">
+                                <p>La quota anual és de 60€ per a adults i 40€ per a menors de 18 anys. Aquesta quota inclou l'assegurança, l'equipació bàsica i la participació en totes les activitats.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border-b border-blue-500 pb-4">
+                            <button class="flex justify-between items-center w-full text-left font-bold">
+                                <span>Quants assajos hi ha per setmana?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="mt-2 hidden">
+                                <p>Normalment tenim dos assajos setmanals: un entre setmana (dimarts de 19:00 a 21:00) i un de cap de setmana (dissabte de 10:00 a 13:00). No és obligatori assistir a tots dos.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border-b border-blue-500 pb-4">
+                            <button class="flex justify-between items-center w-full text-left font-bold">
+                                <span>Puc participar si no tinc experiència?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="mt-2 hidden">
+                                <p>Absolutament! La majoria dels nostres membres van començar sense cap experiència. Tenim formadors que t'ensenyaran tot el necessari per començar de manera segura.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/News Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Notícies i Blog</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Les nostres últimes notícies i històries</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-newspaper text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600">15 JUN 2023</span>
+                            <span class="text-sm text-gray-600">Per: Anna</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Èxit a la Diada de Sant Joan</h3>
+                        <p class="text-gray-700 mb-4">La colla va assolir un 4d9a i un 3d7a en una memorable actuació que va omplir la plaça major.</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-newspaper text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600">2 MAI 2023</span>
+                            <span class="text-sm text-gray-600">Per: Marc</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Nova equipació 2023</h3>
+                        <p class="text-gray-700 mb-4">Ja tenim disponible la nova equipació amb el disseny actualitzat. Podeu fer les vostres comandes.</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-newspaper text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600">20 ABR 2023</span>
+                            <span class="text-sm text-gray-600">Per: Laia</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Taller de tècnica per a enxanetes</h3>
+                        <p class="text-gray-700 mb-4">El proper cap de setmana farem un taller especialitzat per a millorar la tècnica dels nostres enxanetes.</p>
+                        <a href="#" class="text-blue-600 font-medium flex items-center">
+                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure totes les notícies</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-blue-50 catalan-pattern">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Contacte</h2>
+                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Estem a la teva disposició per a qualsevol dubte o consulta</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-6">Envia'ns un missatge</h3>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Nom</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Assumpte</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Selecciona un assumpte</option>
+                                <option value="join">Vols unir-te</option>
+                                <option value="event">Informació sobre esdeveniments</option>
+                                <option value="collaboration">Col·laboració</option>
+                                <option value="other">Altres consultes</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Missatge</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Enviar missatge</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-6">Altres formes de contacte</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">On som</h4>
+                                <p>Carrer dels Castells, 23<br>08001 Barcelona</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email</h4>
+                                <p>info@gambirots.cat</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Telèfon</h4>
+                                <p>+34 123 456 789</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Horari d'assajos</h4>
+                                <p>Dimarts: 19:00 - 21:00<br>Dissabte: 10:00 - 13:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="text-xl font-bold text-blue-600 mb-4">Segueix-nos a les xarxes</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Gambirots</h3>
+                    <p class="mb-4">Colla castellera fundada el 2005. Tradició, passió i esforç col·lectiu.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-blue-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-blue-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Enllaços ràpids</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-blue-300 transition">Inici</a></li>
+                        <li><a href="#about" class="hover:text-blue-300 transition">Qui som</a></li>
+                        <li><a href="#events" class="hover:text-blue-300 transition">Esdeveniments</a></li>
+                        <li><a href="#gallery" class="hover:text-blue-300 transition">Galeria</a></li>
+                        <li><a href="#join" class="hover:text-blue-300 transition">Uneix-te</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contacte</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-blue-300"></i>
+                            <span>Carrer dels Castells, 23, Barcelona</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2 text-blue-300"></i>
+                            <span>info@gambirots.cat</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2 text-blue-300"></i>
+                            <span>+34 123 456 789</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                    <p class="mb-4">Subscriu-te per rebre les nostres novetats i esdeveniments.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="El teu email" class="px-4 py-2 rounded-l-lg w-full text-gray-800 focus:outline-none">
+                        <button type="submit" class="bg-blue-600 px-4 py-2 rounded-r-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-800 mt-12 pt-8 text-center text-blue-300">
+                <p>&copy; 2023 Colla Castellera Gambirots. Tots els drets reservats.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('button').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ accordion
+        const faqButtons = document.querySelectorAll('#contact button');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                answer.classList.toggle('hidden');
+                
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=EsMestre/espaigambirot" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
