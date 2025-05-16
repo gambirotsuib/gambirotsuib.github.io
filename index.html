@@ -25,7 +25,7 @@
         }
         
         .hero {
-            background: linear-gradient(rgba(167, 215, 249, 0.8), rgba(167, 215, 249, 0.8)), url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background: linear-gradient(rgba(167, 215, 249, 0.8), rgba(167, 215, 249, 0.8)), url('https://i.imgur.com/7Y5Qo9Y.jpeg');
             background-size: cover;
             background-position: center;
         }
@@ -81,6 +81,7 @@
                 <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Esdeveniments</a>
                 <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Galeria</a>
                 <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Uneix-te</a>
+                <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Notícies</a>
                 <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Contacte</a>
             </div>
             
@@ -98,6 +99,7 @@
             <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Esdeveniments</a>
             <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Galeria</a>
             <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Uneix-te</a>
+            <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Notícies</a>
             <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2">Contacte</a>
         </div>
     </div>
@@ -118,13 +120,13 @@
     <section id="about" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Qui som</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Qui som?</h2>
                 <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
             </div>
             
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Colla Castellera" class="rounded-lg shadow-xl w-full">
+                    <img src="https://i.imgur.com/WPCY3BB.jpeg" alt="Colla Castellera" class="rounded-lg shadow-xl w-full">
                 </div>
                 
                 <div class="lg:w-1/2">
@@ -163,7 +165,7 @@
                         <button id="btn-mes" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Aquest mes</button>
                         <button id="btn-proxims" class="event-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Pròxims</button>
                         <button id="btn-tots" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Tots</button>
-</div>
+                    </div>
 
 
                 </div>
@@ -173,11 +175,6 @@
             <div id="eventCards" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Dynamic event cards will appear here -->
           </div>
-    
-            
-            <div class="text-center mt-12">
-                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure tot el calendari</a>
-            </div>
         </div>
     </section>
 
@@ -202,11 +199,6 @@
             
             <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <!-- Images will be loaded dynamically here -->
-            </div>
-
-            
-            <div class="text-center mt-12">
-                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure més fotos</a>
             </div>
         </div>
     </section>
@@ -268,43 +260,47 @@
                     
                     <div class="space-y-4">
                         <div class="border-b border-blue-500 pb-4">
-                            <button class="flex justify-between items-center w-full text-left font-bold">
+                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-1">
                                 <span>Quins són els requisits per unir-se?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="mt-2 hidden">
-                                <p>No hi ha requisits específics. Només necessites ganes d'aprendre i treballar en equip. Per als menors, és necessari el consentiment dels pares o tutors.</p>
+                            <div id="answer-1" class="mt-2 hidden w-full text-left">
+                                <p>No hi ha requisits específics...</p>
                             </div>
+
                         </div>
                         
                         <div class="border-b border-blue-500 pb-4">
-                            <button class="flex justify-between items-center w-full text-left font-bold">
+                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-2">
                                 <span>Quina és la quota anual?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="mt-2 hidden">
-                                <p>La quota anual és de 60€ per a adults i 40€ per a menors de 18 anys. Aquesta quota inclou l'assegurança, l'equipació bàsica i la participació en totes les activitats.</p>
+                            <div id="answer-2" class="mt-2 hidden w-full text-left">
+                                <p>No tenim quota anual.</p>
                             </div>
+
                         </div>
                         
                         <div class="border-b border-blue-500 pb-4">
-                            <button class="flex justify-between items-center w-full text-left font-bold">
-                                <span>Quants assajos hi ha per setmana?</span>
+                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-3">
+                                <span>Quants d'assaijos hi ha per setmana?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="mt-2 hidden">
-                                <p>Normalment tenim dos assajos setmanals: un entre setmana (dimarts de 19:00 a 21:00) i un de cap de setmana (dissabte de 10:00 a 13:00). No és obligatori assistir a tots dos.</p>
+                            <div id="answer-3" class="mt-2 hidden w-full text-left">
+                                <p>Tenim dos assaijos per setmana, els dimecres i els divendres de 19:00 a 21:00.</p>
                             </div>
+
                         </div>
                         
                         <div class="border-b border-blue-500 pb-4">
-                            <button class="flex justify-between items-center w-full text-left font-bold">
+                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-4">
                                 <span>Puc participar si no tinc experiència?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div class="mt-2 hidden">
-                                <p>Absolutament! La majoria dels nostres membres van començar sense cap experiència. Tenim formadors que t'ensenyaran tot el necessari per començar de manera segura.</p>
+                            <div id="answer-4" class="mt-2 hidden w-full text-left">
+                                <p>Absolutament! La majoria dels nostres membres han comencçat sense experiència. Els nostres responsables s'encarregaran d'ensenyar-te tot el necessari per començar.</p>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -313,7 +309,7 @@
     </section>
 
     <!-- Blog/News Section -->
-    <section class="py-20 bg-white">
+    <section id="news" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Notícies i Blog</h2>
@@ -321,46 +317,8 @@
                 <p class="text-gray-700 max-w-2xl mx-auto mt-4">Les nostres últimes notícies i històries</p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog Post 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-newspaper text-blue-600 text-5xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600">Data</span>
-                            <span class="text-sm text-gray-600">Autor</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Títol</h3>
-                        <p class="text-gray-700 mb-4">Text.</p>
-                        <a href="#" class="text-blue-600 font-medium flex items-center">
-                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Blog Post 2 -->
-               <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-newspaper text-blue-600 text-5xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600">Data</span>
-                            <span class="text-sm text-gray-600">Autor</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Títol</h3>
-                        <p class="text-gray-700 mb-4">Text.</p>
-                        <a href="#" class="text-blue-600 font-medium flex items-center">
-                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure totes les notícies</a>
+            <div id="blogPosts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog posts will be loaded here -->
             </div>
         </div>
     </section>
@@ -591,6 +549,9 @@
             });
         });
     </script>
+
+    <!-- Esdeveniments script -->
+
     <script>
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
         let allEvents = [];
@@ -632,9 +593,9 @@
                         </div>
                         <h3 class="text-xl font-bold mb-2">${event.Title}</h3>
                         <p class="text-gray-700 mb-4">${event.Description}</p>
-                        <a href="${event.Link}" target="_blank" class="text-blue-600 font-medium flex items-center">
+                        <!-- <a href="${event.Link}" target="_blank" class="text-blue-600 font-medium flex items-center">
                             Més informació <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
+                        </a> -->
                     </div>
                 </div>`;
                 container.innerHTML += html;
@@ -731,11 +692,12 @@
                 const div = document.createElement("div");
                 div.className = "gallery-item overflow-hidden rounded-lg shadow-md";
                 div.innerHTML = `
-                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-48 object-cover">
+                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-auto max-h-[500px] object-contain">
                 `;
                 container.appendChild(div);
             });
         }
+
 
         function filterGallery(category) {
             if (category === 'Totes') {
@@ -762,7 +724,96 @@
         loadGallery();
     </script>
 
+        <!-- Blog script -->
+    <script>
+        const blogCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrQylCz4i1hGkr9XB0pPl8rhlXwR92AcamEXMgfAfKGr-hlCZLssd1o7h1zMLL0c-Ji0kwfzcuph2R/pub?output=csv';
+        let allPosts = [];
 
+        function csvToArray(str, delimiter = ",") {
+            const rows = str.trim().split("\n");
+            const headers = rows.shift().split(delimiter);
+            return rows.map(row => {
+                const values = row.split(delimiter);
+                return headers.reduce((obj, header, i) => {
+                    obj[header.trim()] = values[i]?.trim();
+                    return obj;
+                }, {});
+            });
+        }
+
+        function renderBlogPosts(posts) {
+            const container = document.getElementById("blogPosts");
+            container.innerHTML = "";
+
+            posts.forEach((post, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300";
+                card.innerHTML = `
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        ${post.Image ? `<img src="${post.Image}" alt="Post image" class="object-cover w-full h-full">` : `<i class="fas fa-newspaper text-blue-600 text-5xl"></i>`}
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600">${post.Date}</span>
+                            <span class="text-sm text-gray-600">${post.Author}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${post.Title}</h3>
+                        <p class="text-gray-700 mb-4">${post.Content}</p>
+                        <button onclick="togglePostBody(${index})" id="btn-${index}" class="text-blue-600 font-medium flex items-center">
+                            Llegir més <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        <div id="body-${index}" class="transition-all duration-500 ease-in-out max-h-0 overflow-hidden opacity-0 mt-4 text-gray-700 whitespace-pre-line"> 
+                            ${post.Body}
+                        </div>
+
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function togglePostBody(index) {
+            const bodyDiv = document.getElementById(`body-${index}`);
+            const btn = document.getElementById(`btn-${index}`);
+            const isExpanded = !bodyDiv.classList.contains("max-h-0");
+
+            if (isExpanded) {
+                bodyDiv.classList.add("max-h-0", "opacity-0");
+                bodyDiv.classList.remove("max-h-screen", "opacity-100");
+                btn.innerHTML = `Llegir més <i class="fas fa-arrow-right ml-2"></i>`;
+            } else {
+                bodyDiv.classList.remove("max-h-0", "opacity-0");
+                bodyDiv.classList.add("max-h-screen", "opacity-100");
+                btn.innerHTML = `Mostrar menys <i class="fas fa-arrow-up ml-2"></i>`;
+            }
+        }
+
+
+
+
+        fetch(blogCsvUrl)
+            .then(res => res.text())
+            .then(text => {
+                allPosts = csvToArray(text);
+                renderBlogPosts(allPosts);
+            })
+            .catch(err => console.error("Error loading blog posts:", err));
+    </script>
+
+<!-- FAQ script -->
+    <script>
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const answerId = button.getAttribute('data-target');
+                const answer = document.getElementById(answerId);
+                const icon = button.querySelector('i');
+
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+    </script>
 
 
 
