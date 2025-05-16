@@ -638,8 +638,8 @@
             .then(res => res.text())
             .then(text => {
                 allEvents = csvToArray(text);
-                renderEvents(allEvents);
-                setActiveButton('btn-tots'); // Set "Tots" as default active
+                renderEvents(filterAquestMes(allEvents)); // Only events from "Aquest mes" appear when website loads
+                setActiveButton('btn-mes'); // Set "Aquest mes" as default active
             })
             .catch(err => console.error('Error loading events:', err));
 
