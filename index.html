@@ -708,14 +708,18 @@
                 group.addEventListener("click", () => {
                     const isVisible = overlay.classList.contains("opacity-100");
 
-                    if (isVisible) {
-                        overlay.classList.remove("opacity-100");
-                        overlay.classList.add("opacity-0", "pointer-events-none");
-                    } else {
+                    // Hide all overlays first
+                    document.querySelectorAll("[data-index]").forEach(el => {
+                        el.classList.remove("opacity-100");
+                        el.classList.add("opacity-0", "pointer-events-none");
+                    });
+
+                    if (!isVisible) {
                         overlay.classList.remove("opacity-0", "pointer-events-none");
                         overlay.classList.add("opacity-100");
                     }
                 });
+
             });
         }
 
