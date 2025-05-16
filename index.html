@@ -61,6 +61,8 @@
         .catalan-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235fb0e8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
+
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -83,7 +85,7 @@
                 <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Esdeveniments</a>
                 <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Galeria</a>
                 <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Uneix-te</a>
-                <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Notícies</a>
+                <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Blog</a>
                 <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Contacte</a>
             </div>
             
@@ -101,7 +103,7 @@
             <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Esdeveniments</a>
             <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Galeria</a>
             <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Uneix-te</a>
-            <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Notícies</a>
+            <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Blog</a>
             <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2">Contacte</a>
         </div>
     </div>
@@ -266,7 +268,7 @@
                                 <span>Quins són els requisits per unir-se?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div id="answer-1" class="mt-2 hidden w-full text-left">
+                            <div id="answer-1" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
                                 <p>No hi ha requisits específics...</p>
                             </div>
 
@@ -277,7 +279,7 @@
                                 <span>Quina és la quota anual?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div id="answer-2" class="mt-2 hidden w-full text-left">
+                            <div id="answer-2" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
                                 <p>No tenim quota anual.</p>
                             </div>
 
@@ -288,7 +290,7 @@
                                 <span>Quants d'assaijos hi ha per setmana?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div id="answer-3" class="mt-2 hidden w-full text-left">
+                            <div id="answer-3" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
                                 <p>Tenim dos assaijos per setmana, els dimecres i els divendres de 19:00 a 21:00.</p>
                             </div>
 
@@ -299,7 +301,7 @@
                                 <span>Puc participar si no tinc experiència?</span>
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-                            <div id="answer-4" class="mt-2 hidden w-full text-left">
+                            <div id="answer-4" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
                                 <p>Absolutament! La majoria dels nostres membres han comencçat sense experiència. Els nostres responsables s'encarregaran d'ensenyar-te tot el necessari per començar.</p>
                             </div>
 
@@ -314,7 +316,7 @@
     <section id="news" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Notícies i Blog</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Blog</h2>
                 <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
                 <p class="text-gray-700 max-w-2xl mx-auto mt-4">Les nostres últimes notícies i històries</p>
             </div>
@@ -443,7 +445,7 @@
                         <li><a href="#events" class="hover:text-blue-300 transition">Esdeveniments</a></li>
                         <li><a href="#gallery" class="hover:text-blue-300 transition">Galeria</a></li>
                         <li><a href="#join" class="hover:text-blue-300 transition">Uneix-te</a></li>
-                        <li><a href="#news" class="hover:text-blue-300 transition">Notícies</a></li>
+                        <li><a href="#news" class="hover:text-blue-300 transition">Blog</a></li>
                     </ul>
                 </div>
                 
@@ -829,12 +831,23 @@
                 const answer = document.getElementById(answerId);
                 const icon = button.querySelector('i');
 
-                answer.classList.toggle('hidden');
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
+                const isExpanded = answer.classList.contains('max-h-96');
+
+                if (isExpanded) {
+                    answer.classList.remove('max-h-96', 'opacity-100');
+                    answer.classList.add('max-h-0', 'opacity-0');
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    answer.classList.remove('max-h-0', 'opacity-0');
+                    answer.classList.add('max-h-96', 'opacity-100');
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
             });
         });
     </script>
+
 
 <!-- Form script -->
     <script>
