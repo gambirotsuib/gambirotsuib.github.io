@@ -587,10 +587,11 @@
             events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
 
             for (const event of events) {
-                const html = `
-                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
-                    <div class="h-48 overflow-hidden">
-                        <img src="${event.Image}" alt="Imatge de l'esdeveniment" class="w-full h-full object-cover">
+                const card = document.createElement("div");
+                card.className = "event-card bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-500 opacity-0 translate-y-4";
+                card.innerHTML = `
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        ${event.Image ? `<img src="${event.Image}" alt="Event image" class="w-full h-full object-cover">` : `<i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>`}
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-2">
@@ -600,10 +601,18 @@
                         <h3 class="text-xl font-bold mb-2">${event.Title}</h3>
                         <p class="text-gray-700 mb-4">${event.Description}</p>
                     </div>
-                </div>`;
-                container.innerHTML += html;
+                `;
+
+                container.appendChild(card);
+
+                // Animate card entrance
+                requestAnimationFrame(() => {
+                    card.classList.remove("opacity-0", "translate-y-4");
+                    card.classList.add("opacity-100", "translate-y-0");
+                });
             }
         }
+
 
 
         function filterAquestMes(events) {
