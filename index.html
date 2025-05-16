@@ -68,10 +68,11 @@
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center mr-3">
-                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                <div class="w-20 h-20 mr-3">
+                    <img src="images/logo.jpg" alt="Gambirots logo" class="w-full h-full object-contain">
                 </div>
-                <a href="#" class="text-2xl font-bold text-blue-600">Gambirots</a>
+
+                <a href="#" class="text-2xl font-bold text-blue-600">Gambirots de la UIB</a>
             </div>
             
             <div class="hidden md:flex space-x-8">
@@ -158,67 +159,21 @@
             
             <div class="flex justify-center mb-8">
                 <div class="inline-flex rounded-md shadow-sm">
-                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Aquest mes</button>
-                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Pròxims</button>
-                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Tots</button>
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button id="btn-mes" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Aquest mes</button>
+                        <button id="btn-proxims" class="event-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Pròxims</button>
+                        <button id="btn-tots" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Tots</button>
+</div>
+
+
                 </div>
+
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Event Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600 font-bold">15 JUL</span>
-                            <span class="text-sm text-gray-600">10:00 - 14:00</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Assaig general</h3>
-                        <p class="text-gray-700 mb-4">Assaig obert a tots els membres de la colla. Preparació per a la diada.</p>
-                        <a href="#" class="text-blue-600 font-medium flex items-center">
-                            Més informació <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Event Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600 font-bold">23 JUL</span>
-                            <span class="text-sm text-gray-600">18:00 - 21:00</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Diada</h3>
-                        <p class="text-gray-700 mb-4">Actuació a la plaça major</p>
-                        <a href="#" class="text-blue-600 font-medium flex items-center">
-                            Més informació <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Event Card 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600 font-bold">30 JUL</span>
-                            <span class="text-sm text-gray-600">11:00 - 13:00</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Taller per a nous membres</h3>
-                        <p class="text-gray-700 mb-4">Sessió d'introducció per a persones interessades a unir-se a la colla.</p>
-                        <a href="#" class="text-blue-600 font-medium flex items-center">
-                            Més informació <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div id="eventCards" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamic event cards will appear here -->
+          </div>
+    
             
             <div class="text-center mt-12">
                 <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure tot el calendari</a>
@@ -237,40 +192,18 @@
             
             <div class="flex justify-center mb-8">
                 <div class="inline-flex rounded-md shadow-sm">
-                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Totes</button>
-                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Actuacions</button>
-                    <button class="px-4 py-2 text-sm font-medium bg-white text-blue-600">Assajos</button>
-                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Social</button>
+                  <button id="btn-totes" class="gallery-filter-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Totes</button>
+                  <button id="btn-actuacions" class="gallery-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Actuacions</button>
+                  <button id="btn-assajos" class="gallery-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Assajos</button>
+                  <button id="btn-social" class="gallery-filter-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Social</button>
                 </div>
+
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Gallery items would be populated here -->
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
-                <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1075&q=80" alt="Gallery image" class="w-full h-48 object-cover">
-                </div>
+            <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Images will be loaded dynamically here -->
             </div>
+
             
             <div class="text-center mt-12">
                 <a href="#" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Veure més fotos</a>
@@ -658,5 +591,180 @@
             });
         });
     </script>
+    <script>
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
+        let allEvents = [];
+
+        function csvToArray(str, delimiter = ",") {
+            const rows = str.trim().split("\n");
+            const headers = rows.shift().split(delimiter);
+            return rows.map(row => {
+                const values = row.split(delimiter);
+                return headers.reduce((obj, header, i) => {
+                    obj[header.trim()] = values[i]?.trim();
+                    return obj;
+                }, {});
+            });
+        }
+
+        function formatDate(dateStr) {
+            const options = { day: '2-digit', month: 'short' };
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('ca-ES', options).toUpperCase();
+        }
+
+        function renderEvents(events) {
+            const container = document.getElementById("eventCards");
+            container.innerHTML = "";
+
+            events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+
+            for (const event of events) {
+                const html = `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden event-card transition duration-300">
+                    <div class="h-48 bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-blue-600 font-bold">${formatDate(event.Date)}</span>
+                            <span class="text-sm text-gray-600">${event.Time}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${event.Title}</h3>
+                        <p class="text-gray-700 mb-4">${event.Description}</p>
+                        <a href="${event.Link}" target="_blank" class="text-blue-600 font-medium flex items-center">
+                            Més informació <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>`;
+                container.innerHTML += html;
+            }
+        }
+
+        function filterAquestMes(events) {
+            const now = new Date();
+            return events.filter(e => {
+                const d = new Date(e.Date);
+                return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+            });
+        }
+
+        function filterProxims(events) {
+            const now = new Date();
+            return events.filter(e => new Date(e.Date) >= now);
+        }
+
+        function filterTots(events) {
+            return events;
+        }
+
+        function setActiveButton(clickedId) {
+            const buttons = document.querySelectorAll('.event-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.id === clickedId) {
+                    btn.classList.remove('bg-white', 'text-blue-600');
+                    btn.classList.add('bg-blue-600', 'text-white');
+                } else {
+                    btn.classList.remove('bg-blue-600', 'text-white');
+                    btn.classList.add('bg-white', 'text-blue-600');
+                }
+            });
+        }
+
+        fetch(csvUrl)
+            .then(res => res.text())
+            .then(text => {
+                allEvents = csvToArray(text);
+                renderEvents(allEvents);
+                setActiveButton('btn-tots'); // Set "Tots" as default active
+            })
+            .catch(err => console.error('Error loading events:', err));
+
+        // Button click listeners
+        document.getElementById('btn-mes').addEventListener('click', () => {
+            renderEvents(filterAquestMes(allEvents));
+            setActiveButton('btn-mes');
+        });
+        document.getElementById('btn-proxims').addEventListener('click', () => {
+            renderEvents(filterProxims(allEvents));
+            setActiveButton('btn-proxims');
+        });
+        document.getElementById('btn-tots').addEventListener('click', () => {
+            renderEvents(filterTots(allEvents));
+            setActiveButton('btn-tots');
+        });
+    </script>
+
+<!-- Gallery script -->
+
+    <script>
+        const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv'
+        let allImages = [];
+
+        function loadGallery() {
+            fetch(galleryCsvUrl)
+                .then(res => res.text())
+                .then(text => {
+                    allImages = csvToGalleryArray(text);
+                    renderGallery(allImages);
+                })
+                .catch(err => console.error("Error loading gallery:", err));
+        }
+
+        function csvToGalleryArray(str, delimiter = ",") {
+            const rows = str.trim().split("\n");
+            const headers = rows.shift().split(delimiter);
+            return rows.map(row => {
+                const values = row.split(delimiter);
+                return headers.reduce((obj, header, i) => {
+                    obj[header.trim()] = values[i]?.trim();
+                    return obj;
+                }, {});
+            });
+        }
+
+        function renderGallery(images) {
+            const container = document.getElementById("galleryGrid");
+            container.innerHTML = "";
+
+            images.forEach(img => {
+                const div = document.createElement("div");
+                div.className = "gallery-item overflow-hidden rounded-lg shadow-md";
+                div.innerHTML = `
+                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-48 object-cover">
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function filterGallery(category) {
+            if (category === 'Totes') {
+                renderGallery(allImages);
+            } else {
+                const filtered = allImages.filter(img => img.Category === category);
+                renderGallery(filtered);
+            }
+
+            // Update button styles
+            document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-white', 'text-blue-600');
+            });
+            document.getElementById(`btn-${category.toLowerCase()}`).classList.remove('bg-white', 'text-blue-600');
+            document.getElementById(`btn-${category.toLowerCase()}`).classList.add('bg-blue-600', 'text-white');
+        }
+
+        document.getElementById('btn-totes').addEventListener('click', () => filterGallery('Totes'));
+        document.getElementById('btn-actuacions').addEventListener('click', () => filterGallery('Actuacions'));
+        document.getElementById('btn-assajos').addEventListener('click', () => filterGallery('Assajos'));
+        document.getElementById('btn-social').addEventListener('click', () => filterGallery('Social'));
+
+        loadGallery();
+    </script>
+
+
+
+
+
 <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=EsMestre/espaigambirot" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
