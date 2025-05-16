@@ -690,15 +690,34 @@
             const container = document.getElementById("galleryGrid");
             container.innerHTML = "";
 
-            images.forEach(img => {
+            images.forEach((img, index) => {
                 const div = document.createElement("div");
-                div.className = "gallery-item overflow-hidden rounded-lg shadow-md";
+                div.className = "gallery-item relative overflow-hidden rounded-lg shadow-md cursor-pointer group";
+
                 div.innerHTML = `
-                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-auto max-h-[500px] object-contain">
+                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-auto max-h-[500px] object-contain transition-transform duration-300 group-hover:scale-105">
+                    <div id="overlay-${index}" class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center text-white text-lg font-semibold opacity-0 transition-opacity duration-500 text-center px-4">
+                        ${img.Text || ""}
+                    </div>
                 `;
+
+                div.addEventListener("click", () => {
+                    const overlay = document.getElementById(`overlay-${index}`);
+                    const isVisible = overlay.classList.contains("opacity-100");
+
+                    if (isVisible) {
+                        overlay.classList.remove("opacity-100");
+                        overlay.classList.add("opacity-0");
+                    } else {
+                        overlay.classList.remove("opacity-0");
+                        overlay.classList.add("opacity-100");
+                    }
+                });
+
                 container.appendChild(div);
             });
         }
+
 
 
         function filterGallery(category) {
