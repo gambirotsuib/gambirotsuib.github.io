@@ -111,7 +111,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero min-h-screen flex items-center justify-center text-center text-white py-20">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Gambirots</h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Gambirots de la UIB</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Aquí una frase xulesca</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#join" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Uneix-te a nosaltres</a>
@@ -661,18 +661,8 @@
 <!-- Gallery script -->
 
     <script>
-        const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv'
+        const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv';
         let allImages = [];
-
-        function loadGallery() {
-            fetch(galleryCsvUrl)
-                .then(res => res.text())
-                .then(text => {
-                    allImages = csvToGalleryArray(text);
-                    renderGallery(allImages);
-                })
-                .catch(err => console.error("Error loading gallery:", err));
-        }
 
         function csvToGalleryArray(str, delimiter = ",") {
             const rows = str.trim().split("\n");
@@ -690,42 +680,53 @@
             const container = document.getElementById("galleryGrid");
             container.innerHTML = "";
 
-            images.forEach(img => {
+            images.forEach((img, index) => {
                 const div = document.createElement("div");
-                div.className = "gallery-item overflow-hidden rounded-lg shadow-md opacity-0 transform translate-y-4 transition-all duration-500 relative";
+                div.className = "gallery-item relative overflow-hidden rounded-lg shadow-md opacity-0 translate-y-5 transition-all duration-700";
 
                 div.innerHTML = `
-                    <img src="${img.URL}" alt="${img.Category}" class="w-full h-auto max-h-[500px] object-contain">
-                    <div class="absolute inset-0 bg-black bg-opacity-60 text-white flex items-center justify-center text-center px-4 text-lg opacity-0 transition-opacity duration-500 pointer-events-none">
-                        ${img.Text || ''}
+                    <div class="relative cursor-pointer group">
+                        <img src="${img.URL}" alt="${img.Category}" class="w-full h-auto max-h-[500px] object-contain">
+                        <div class="absolute inset-0 bg-black bg-opacity-60 text-white flex items-center justify-center text-center text-lg font-semibold opacity-0 transition-opacity duration-500 pointer-events-none p-4" data-index="${index}">
+                            ${img.Text || ""}
+                        </div>
                     </div>
                 `;
 
                 container.appendChild(div);
 
                 // Animate appearance
-                requestAnimationFrame(() => {
-                    div.classList.remove("opacity-0", "translate-y-4");
+                setTimeout(() => {
+                    div.classList.remove("opacity-0", "translate-y-5");
                     div.classList.add("opacity-100", "translate-y-0");
-                });
+                }, 50);
 
-                // Handle hover for text overlay
-                const overlay = div.querySelector("div.absolute");
-                div.addEventListener("click", () => {
+                // Add toggle click behavior
+                const group = div.querySelector(".group");
+                const overlay = group.querySelector("div[data-index]");
+
+                group.addEventListener("click", () => {
                     const isVisible = overlay.classList.contains("opacity-100");
-                    overlay.classList.toggle("opacity-100", !isVisible);
-                    overlay.classList.toggle("opacity-0", isVisible);
+
+                    if (isVisible) {
+                        overlay.classList.remove("opacity-100");
+                        overlay.classList.add("opacity-0", "pointer-events-none");
+                    } else {
+                        overlay.classList.remove("opacity-0", "pointer-events-none");
+                        overlay.classList.add("opacity-100");
+                    }
                 });
             });
         }
 
+
+
         function filterGallery(category) {
-            if (category === 'Totes') {
-                renderGallery(allImages);
-            } else {
-                const filtered = allImages.filter(img => img.Category === category);
-                renderGallery(filtered);
-            }
+            const filtered = category === 'Totes'
+                ? allImages
+                : allImages.filter(img => img.Category === category);
+
+            renderGallery(filtered);
 
             // Update button styles
             document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
@@ -736,6 +737,17 @@
             document.getElementById(`btn-${category.toLowerCase()}`).classList.add('bg-blue-600', 'text-white');
         }
 
+        function loadGallery() {
+            fetch(galleryCsvUrl)
+                .then(res => res.text())
+                .then(text => {
+                    allImages = csvToGalleryArray(text);
+                    filterGallery('Actuacions'); // Show only "Actuacions" on load
+                })
+                .catch(err => console.error("Error loading gallery:", err));
+        }
+
+        // Button listeners
         document.getElementById('btn-totes').addEventListener('click', () => filterGallery('Totes'));
         document.getElementById('btn-actuacions').addEventListener('click', () => filterGallery('Actuacions'));
         document.getElementById('btn-assajos').addEventListener('click', () => filterGallery('Assajos'));
@@ -743,6 +755,7 @@
 
         loadGallery();
     </script>
+
 
         <!-- Blog script -->
     <script>
@@ -778,7 +791,7 @@
                             <span class="text-sm text-gray-600">${post.Author}</span>
                         </div>
                         <h3 class="text-xl font-bold mb-2">${post.Title}</h3>
-                        <p class="text-gray-700 mb-4">${post.Content}</p>
+                        <p class="text-gray-700 mb-4">${post.Subtitle}</p>
                         <button onclick="togglePostBody(${index})" id="btn-${index}" class="text-blue-600 font-medium flex items-center">
                             Llegir més <i class="fas fa-arrow-right ml-2"></i>
                         </button>
