@@ -341,34 +341,39 @@
                     <h3 class="text-2xl font-bold text-blue-600 mb-6">Envia'ns un missatge</h3>
                     
                     <form id="contactForm" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Nom</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        
-                        <div>
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        
-                        <div>
-                            <label for="subject" class="block text-gray-700 font-medium mb-2">Assumpte</label>
-                            <select id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Selecciona un assumpte</option>
-                                <option value="join">Vols unir-te</option>
-                                <option value="event">Informació sobre esdeveniments</option>
-                                <option value="collaboration">Col·laboració</option>
-                                <option value="other">Altres consultes</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Missatge</label>
-                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Enviar missatge</button>
+                      <div>
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Nom</label>
+                        <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-name">Aquest camp és obligatori.</p>
+                      </div>
+
+                      <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-email">Aquest camp és obligatori.</p>
+                      </div>
+
+                      <div>
+                        <label for="subject" class="block text-gray-700 font-medium mb-2">Assumpte</label>
+                        <select id="subject" name="subject" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option value="">Selecciona un assumpte</option>
+                          <option value="join">Vols unir-te</option>
+                          <option value="event">Informació sobre esdeveniments</option>
+                          <option value="collaboration">Col·laboració</option>
+                          <option value="other">Altres consultes</option>
+                        </select>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-subject">Aquest camp és obligatori.</p>
+                      </div>
+
+                      <div>
+                        <label for="message" class="block text-gray-700 font-medium mb-2">Missatge</label>
+                        <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-message">Aquest camp és obligatori.</p>
+                      </div>
+
+                      <button type="submit" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Enviar missatge</button>
                     </form>
+
                 </div>
                 
                 <div class="lg:w-1/2">
@@ -863,14 +868,42 @@
 
 <!-- Form script -->
     <script>
-      document.getElementById("contactForm").addEventListener("submit", function(e) {
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
         e.preventDefault(); // Stop default form behavior
 
-        const form = e.target;
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const subject = document.getElementById("subject");
+        const message = document.getElementById("message");
 
-        const data = new FormData(form);
+        const fields = [
+          { input: name, error: "error-name" },
+          { input: email, error: "error-email" },
+          { input: subject, error: "error-subject" },
+          { input: message, error: "error-message" }
+        ];
 
-        fetch("https://formspree.io/f/myzwoeqn", {
+        let valid = true;
+
+        fields.forEach(({ input, error }) => {
+          const errorElement = document.getElementById(error);
+
+          if (!input.value.trim()) {
+            input.classList.add("border-red-500");
+            errorElement.classList.remove("hidden");
+            valid = false;
+          } else {
+            input.classList.remove("border-red-500");
+            errorElement.classList.add("hidden");
+          }
+        });
+
+        if (!valid) return;
+
+        // If valid, submit via Formspree
+        const data = new FormData(e.target);
+
+        fetch("https://formspree.io/f/xeogdaaj", {
           method: "POST",
           body: data,
           headers: {
@@ -888,6 +921,7 @@
         });
       });
     </script>
+
 
 
 <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=EsMestre/espaigambirot" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
