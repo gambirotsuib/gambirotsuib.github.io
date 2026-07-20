@@ -3,926 +3,1266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gambirots</title>
+    <title>Gambirots de la UIB</title>
+    <meta name="description" content="Colla castellera universitària de la UIB. Assajos, actuacions, galeria, blog i contacte.">
+    <link rel="icon" type="image/png" href="images/logopng.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
         :root {
-            --primary-blue: #a7d7f9;
-            --secondary-blue: #5fb0e8;
-            --dark-blue: #1e3a8a;
+            --ink: #14384d;
+            --navy: #1d6f9a;
+            --blue: #4bb6e8;
+            --sky: #a8e1f7;
+            --mist: #f0fbff;
+            --gold: #8edaf6;
+            --coral: #5fc0ec;
+            --line: #cdeefa;
         }
-        
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f8fafc;
+            margin: 0;
+            background: #f7fcff;
+            color: var(--ink);
+            font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: 0;
         }
-        
+
+        section {
+            scroll-margin-top: 96px;
+        }
+
         .hero {
-            background: linear-gradient(rgba(167, 215, 249, 0.8), rgba(167, 215, 249, 0.8)), url('https://i.imgur.com/7Y5Qo9Y.jpeg');
+            min-height: 78svh;
+            background:
+                linear-gradient(90deg, rgba(240, 251, 255, 0.97) 0%, rgba(202, 238, 252, 0.88) 46%, rgba(255, 255, 255, 0.22) 100%),
+                url('images/fotoGrupStaMaria.jpg');
+            background-position: center 42%;
             background-size: cover;
-            background-position: center;
         }
-        
-        .nav-link:hover {
-            color: var(--dark-blue);
-            transform: translateY(-2px);
+
+        .section-title {
+            color: var(--navy);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.05;
         }
-        
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+        .section-lead {
+            color: #526170;
+            font-size: 1.04rem;
+            line-height: 1.8;
         }
-        
-        .gallery-item {
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.03);
-        }
-        
+
         .btn-primary {
-            background-color: var(--secondary-blue);
-            transition: all 0.3s ease;
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 14px 30px rgba(75, 182, 232, 0.26);
         }
-        
-        .btn-primary:hover {
-            background-color: var(--dark-blue);
+
+        .btn-primary:hover,
+        .btn-primary:focus-visible {
+            background: var(--navy);
             transform: translateY(-2px);
         }
-        
-        .catalan-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235fb0e8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--navy);
+            border: 1px solid var(--line);
         }
 
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            background: var(--sky);
+            color: var(--ink);
+            transform: translateY(-2px);
+        }
 
+        .nav-link,
+        .dropdown-link {
+            color: #365064;
+            transition: color 180ms ease, transform 180ms ease;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus-visible,
+        .dropdown-link:hover,
+        .dropdown-link:focus-visible {
+            color: var(--blue);
+        }
+
+        .dropdown-panel {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+        }
+
+        .dropdown:hover .dropdown-panel,
+        .dropdown:focus-within .dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 18px 48px rgba(16, 32, 51, 0.07);
+        }
+
+        .filter-btn {
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--navy);
+            transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn:focus-visible,
+        .filter-btn.is-active {
+            border-color: var(--blue);
+            background: var(--blue);
+            color: #fff;
+        }
+
+        .gallery-item img {
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            transition: transform 360ms ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        .gallery-overlay {
+            background: linear-gradient(180deg, rgba(16, 32, 51, 0) 0%, rgba(16, 32, 51, 0.82) 100%);
+        }
+
+        .gallery-modal-backdrop {
+            background: rgba(20, 56, 77, 0.78);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-modal-image {
+            max-height: min(72vh, 760px);
+        }
+
+        .catalan-line {
+            width: 88px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--sky), #ffffff);
+            border-radius: 999px;
+        }
+
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+        }
+
+        .back-to-top.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 767px) {
+            .hero {
+                min-height: 74svh;
+                background:
+                    linear-gradient(180deg, rgba(240, 251, 255, 0.94) 0%, rgba(194, 235, 251, 0.82) 100%),
+                    url('images/fotoGrupStaMaria.jpg');
+                background-position: center 42%;
+            }
+        }
+
+        .fallback-media {
+            position: relative;
+            min-height: 220px;
+            background:
+                linear-gradient(135deg, rgba(75, 182, 232, 0.16), rgba(168, 225, 247, 0.3)),
+                #f0fbff;
+        }
+
+        .fallback-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0.28;
+        }
+
+        .fallback-icon {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy);
+            font-size: 2rem;
+        }
     </style>
 </head>
-<body class="text-gray-800">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="#home" class="flex items-center">
-                    <div class="w-20 h-20 mr-3">
-                        <img src="https://i.imgur.com/FFXZlXN.jpeg" alt="Gambirots logo" class="w-full h-full object-contain">
-                    </div>
-                    <span class="text-2xl font-bold text-blue-600">Gambirots de la UIB</span>
-                </a>
+<body>
+    <nav class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+            <a href="#home" class="flex min-w-0 items-center gap-3">
+                <span class="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm ring-2 ring-[#cdeefa]">
+                    <img src="images/logopng.png" alt="Logo dels Gambirots de la UIB" class="h-full w-full object-cover">
+                </span>
+                <span class="min-w-0">
+                    <span class="block truncate text-lg font-extrabold text-[#1d6f9a] sm:text-xl">Gambirots de la UIB</span>
+                    <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-[#5fc0ec]">Colla castellera universitària</span>
+                </span>
+            </a>
 
+            <div class="hidden items-center gap-7 md:flex">
+                <a href="#home" class="nav-link text-sm font-bold">Inici</a>
+                <div class="dropdown relative">
+                    <button type="button" class="nav-link flex items-center gap-2 text-sm font-bold" aria-haspopup="true">
+                        Apartats <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="dropdown-panel absolute right-0 top-full mt-4 w-[360px] rounded-md border border-slate-200 bg-white p-4 shadow-2xl">
+                        <div class="grid gap-1">
+                            <a href="#about" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Qui som?</a>
+                            <div class="rounded-md bg-[#f0fbff] p-3">
+                                <a href="#organization" class="dropdown-link flex items-center justify-between text-sm font-bold">
+                                    Organització <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                                <div class="mt-3 grid grid-cols-2 gap-2 text-sm">
+                                    <a href="#directiva" class="dropdown-link">Directiva</a>
+                                    <a href="#tecnica" class="dropdown-link">Tècnica</a>
+                                    <a href="#punt-lila" class="dropdown-link">Punt Lila</a>
+                                    <a href="#musics" class="dropdown-link">Músics</a>
+                                </div>
+                            </div>
+                            <a href="#events" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Calendari</a>
+                            <a href="#gallery" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Galeria</a>
+                            <a href="#news" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Blog</a>
+                            <a href="#join" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Uneix-te</a>
+                            <a href="#contact" class="dropdown-link rounded-md px-3 py-2 text-sm font-semibold">Contacte</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#join" class="btn-primary rounded-md px-5 py-3 text-sm font-extrabold transition">Vine a assaig</a>
             </div>
-            
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link text-blue-600 font-medium transition">Inici</a>
-                <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Qui som</a>
-                <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Esdeveniments</a>
-                <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Galeria</a>
-                <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Uneix-te</a>
-                <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Blog</a>
-                <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium transition">Contacte</a>
-            </div>
-            
-            <button class="md:hidden text-blue-600">
-                <i class="fas fa-bars text-2xl"></i>
+
+            <button id="menuToggle" type="button" class="flex h-11 w-11 items-center justify-center rounded-md border border-slate-200 text-[#1d6f9a] md:hidden" aria-label="Obrir menú" aria-expanded="false">
+                <i class="fas fa-bars text-xl"></i>
             </button>
+        </div>
+
+        <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white md:hidden">
+            <div class="mx-auto grid max-w-7xl gap-2 px-4 py-4">
+                <a href="#home" class="nav-link rounded-md px-3 py-2 font-bold">Inici</a>
+                <a href="#about" class="nav-link rounded-md px-3 py-2 font-bold">Qui som?</a>
+                <details class="rounded-md bg-[#f0fbff] px-3 py-2">
+                    <summary class="cursor-pointer font-bold text-[#1d6f9a]">Organització</summary>
+                    <div class="mt-3 grid gap-2 pl-3 text-sm font-semibold">
+                        <a href="#directiva" class="nav-link">Directiva</a>
+                        <a href="#tecnica" class="nav-link">Tècnica</a>
+                        <a href="#punt-lila" class="nav-link">Punt Lila</a>
+                        <a href="#musics" class="nav-link">Músics</a>
+                    </div>
+                </details>
+                <a href="#events" class="nav-link rounded-md px-3 py-2 font-bold">Calendari</a>
+                <a href="#gallery" class="nav-link rounded-md px-3 py-2 font-bold">Galeria</a>
+                <a href="#news" class="nav-link rounded-md px-3 py-2 font-bold">Blog</a>
+                <a href="#join" class="nav-link rounded-md px-3 py-2 font-bold">Uneix-te</a>
+                <a href="#contact" class="nav-link rounded-md px-3 py-2 font-bold">Contacte</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="md:hidden bg-white shadow-lg hidden" id="mobileMenu">
-        <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
-            <a href="#home" class="nav-link text-blue-600 font-medium py-2 border-b border-gray-100">Inici</a>
-            <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Qui som</a>
-            <a href="#events" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Esdeveniments</a>
-            <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Galeria</a>
-            <a href="#join" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Uneix-te</a>
-            <a href="#news" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2 border-b border-gray-100">Blog</a>
-            <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 font-medium py-2">Contacte</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero min-h-screen flex items-center justify-center text-center text-white py-20">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Gambirots de la UIB</h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Aquí una frase xulesca</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#join" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Uneix-te a nosaltres</a>
-                <a href="#about" class="bg-white px-8 py-3 rounded-full font-bold text-blue-600 inline-block">Qui som?</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Qui som?</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-            </div>
-            
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <img src="https://i.imgur.com/M8GjhXH.jpeg" alt="Colla Castellera" class="rounded-lg shadow-xl w-full">
-                </div>
-                
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">La nostra història</h3>
-                    <p class="text-gray-700 mb-6">Un poc de paripé per aquí</p>
-                    
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <div class="text-blue-600 text-3xl mb-2">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h4 class="font-bold mb-1">60+ Membres</h4>
-                            <p class="text-sm text-gray-600">universitaris</p>
-                        </div>
+    <main>
+        <section id="home" class="hero flex items-center text-[#14384d]">
+            <div class="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+                <div class="max-w-3xl">
+                    <h1 class="text-5xl font-extrabold leading-tight sm:text-6xl lg:text-7xl">Gambirots de la UIB</h1>
+                    <p class="mt-6 max-w-2xl text-lg font-medium leading-8 text-[#31566c] sm:text-2xl">Castells, universitat i poble. Vine a fer pinya amb una colla oberta, jove i arrelada a Mallorca.</p>
+                    <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+                        <a href="#join" class="btn-primary rounded-md px-7 py-4 text-center font-extrabold transition">Uneix-te a nosaltres</a>
+                        <a href="#events" class="btn-secondary rounded-md px-7 py-4 text-center font-extrabold transition">Veure calendari</a>
                     </div>
-                    
-                    <a href="#join" class="btn-primary px-6 py-2 rounded-full font-bold text-white inline-block">Descobreix com unir-te</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section id="events" class="py-20 bg-blue-50 catalan-pattern">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Esdeveniments</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Consulta el nostre calendari d'activitats, assajos i actuacions</p>
-            </div>
-            
-            <div class="flex justify-center mb-8">
-                <div class="inline-flex rounded-md shadow-sm">
-                    <div class="inline-flex rounded-md shadow-sm">
-                        <button id="btn-mes" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Aquest mes</button>
-                        <button id="btn-proxims" class="event-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Pròxims</button>
-                        <button id="btn-tots" class="event-filter-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Tots</button>
-                    </div>
-
-
-                </div>
-
-            </div>
-            
-            <div id="eventCards" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dynamic event cards will appear here -->
-          </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Galeria</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Records dels nostres millors moments</p>
-            </div>
-            
-            <div class="flex justify-center mb-8">
-                <div class="inline-flex rounded-md shadow-sm">
-                  <button id="btn-totes" class="gallery-filter-btn px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Totes</button>
-                  <button id="btn-actuacions" class="gallery-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Actuacions</button>
-                  <button id="btn-assajos" class="gallery-filter-btn px-4 py-2 text-sm font-medium bg-white text-blue-600">Assajos</button>
-                  <button id="btn-social" class="gallery-filter-btn px-4 py-2 text-sm font-medium rounded-r-lg bg-white text-blue-600">Social</button>
-                </div>
-
-            </div>
-            
-            <div id="galleryGrid" class="flex flex-wrap justify-center gap-4">
-                <!-- Images will be loaded dynamically here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Join Section -->
-    <section id="join" class="py-20 bg-blue-600 text-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Uneix-te a nosaltres</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-                <p class="max-w-2xl mx-auto mt-4">Forma part de la nostra família castellera. No importa la teva experiència, tothom és benvingut!</p>
-            </div>
-            
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6">Com unir-te</h3>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <span class="font-bold">1</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-2">Assisteix a un assaig</h4>
-                                <p>Vine a conèixer-nos en un dels nostres assajos setmanals. Cada dimecres i divendres a les 19:00 a la rotonda del Parc Bit</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <span class="font-bold">2</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-2">Parla amb nosaltres</h4>
-                                <p>Els nostres responsables t'explicaran com funcionem i respondran a totes les teves preguntes.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <span class="font-bold">3</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-2">Formalitza la inscripció</h4>
-                                <p>Un cop decidit, només cal omplir una fitxa.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-10 bg-blue-700 p-6 rounded-lg">
-                        <h4 class="font-bold text-xl mb-4">Proper taller d'iniciació</h4>
-                        <p class="mb-4">Pots venir a prova a qualsevol dels nostres assajos, els dimecres i els divendres a les 19:00 a la rotonda del Parc Bit</p>
-                        <a href="#contact" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold inline-block">Inscriu-te ara</a>
+                    <div class="mt-10 grid max-w-xl grid-cols-1 gap-3 text-sm font-bold text-[#14384d] sm:grid-cols-3">
+                        <span class="border-l-4 border-[#8edaf6] pl-3">Assajos setmanals</span>
+                        <span class="border-l-4 border-[#a8e1f7] pl-3">Actuacions i tallers</span>
+                        <span class="border-l-4 border-[#5fc0ec] pl-3">Tothom hi té lloc</span>
                     </div>
                 </div>
-                
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6">Preguntes freqüents</h3>
-                    
-                    <div class="space-y-4">
-                        <div class="border-b border-blue-500 pb-4">
-                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-1">
-                                <span>Quins són els requisits per unir-se?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div id="answer-1" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
-                                <p>No hi ha requisits específics...</p>
-                            </div>
+            </div>
+        </section>
 
-                        </div>
-                        
-                        <div class="border-b border-blue-500 pb-4">
-                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-2">
-                                <span>Quina és la quota anual?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div id="answer-2" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
-                                <p>No tenim quota anual.</p>
+        <section id="about" class="bg-white py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="grid items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
+                    <div class="overflow-hidden rounded-md shadow-2xl shadow-slate-200">
+                        <img src="images/fotoGrupStaMaria.jpg" alt="Colla castellera Gambirots a Santa Maria" class="h-full min-h-[360px] w-full object-cover" onerror="handleImageError(this)">
+                    </div>
+                    <div>
+                        <div class="catalan-line mb-6"></div>
+                        <h2 class="section-title">Qui som?</h2>
+                        <p class="section-lead mt-6">Som la colla castellera universitària de la UIB: un espai per aprendre castells, compartir cultura popular i construir confiança des de la pinya fins al pom de dalt.</p>
+                        <p class="section-lead mt-4">Ens mouen l'esforç col·lectiu, la seguretat, la inclusió i les ganes de fer créixer la colla dins i fora del campus.</p>
+                        <div class="mt-8 grid gap-4 sm:grid-cols-3">
+                            <div class="border-l-4 border-[#4bb6e8] bg-[#f0fbff] p-5">
+                                <p class="text-3xl font-extrabold text-[#1d6f9a]">60+</p>
+                                <p class="mt-1 text-sm font-semibold text-slate-600">membres</p>
                             </div>
-
-                        </div>
-                        
-                        <div class="border-b border-blue-500 pb-4">
-                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-3">
-                                <span>Quants d'assajos hi ha per setmana?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div id="answer-3" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
-                                <p>Tenim dos assajos per setmana, els dimecres i els divendres de 19:00 a 21:00.</p>
+                            <div class="border-l-4 border-[#8edaf6] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+                                <p class="text-3xl font-extrabold text-[#1d6f9a]">2</p>
+                                <p class="mt-1 text-sm font-semibold text-slate-600">assajos per setmana</p>
                             </div>
-
-                        </div>
-                        
-                        <div class="border-b border-blue-500 pb-4">
-                            <button class="faq-toggle flex justify-between items-center w-full text-left font-bold" data-target="answer-4">
-                                <span>Puc participar si no tinc experiència?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div id="answer-4" class="mt-2 w-full text-left max-h-0 overflow-hidden transition-all duration-500 opacity-0">
-                                <p>Absolutament! La majoria dels nostres membres han començat sense experiència. Els nostres responsables s'encarregaran d'ensenyar-te tot el necessari per començar.</p>
+                            <div class="border-l-4 border-[#5fc0ec] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+                                <p class="text-3xl font-extrabold text-[#1d6f9a]">2003</p>
+                                <p class="mt-1 text-sm font-semibold text-slate-600">inici de la colla</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Blog/News Section -->
-    <section id="news" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Blog</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Les nostres últimes notícies i històries</p>
+        <section id="organization" class="bg-[#f0fbff] py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-3xl text-center">
+                    <div class="catalan-line mx-auto mb-6"></div>
+                    <h2 class="section-title">Organització</h2>
+                    <p class="section-lead mt-5">La colla funciona amb equips coordinats perquè cada assaig, actuació i trobada tengui cura, ritme i responsabilitat compartida.</p>
+                </div>
+                <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                    <article id="directiva" class="card p-6">
+                        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-md bg-[#1d6f9a] text-white">
+                            <i class="fas fa-people-roof"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">Directiva</h3>
+                        <p class="mt-3 leading-7 text-slate-600">Coordina el dia a dia, les relacions institucionals, la comunicació i la planificació general de la colla.</p>
+                    </article>
+                    <article id="tecnica" class="card p-6">
+                        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-md bg-[#4bb6e8] text-white">
+                            <i class="fas fa-diagram-project"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">Tècnica</h3>
+                        <p class="mt-3 leading-7 text-slate-600">Prepara assajos, estructures i progressions amb mirada de seguretat, aprenentatge i evolució castellera.</p>
+                    </article>
+                    <article id="punt-lila" class="card p-6">
+                        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-md bg-[#5fc0ec] text-white">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">Punt Lila</h3>
+                        <p class="mt-3 leading-7 text-slate-600">Vetlla per un entorn respectuós, segur i lliure de violències en les activitats de la colla.</p>
+                    </article>
+                    <article id="musics" class="card p-6">
+                        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-md bg-[#8edaf6] text-[#14384d]">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">Músics</h3>
+                        <p class="mt-3 leading-7 text-slate-600">Posen so a les actuacions i acompanyen la colla amb gralles, tabals i energia de plaça.</p>
+                    </article>
+                </div>
             </div>
-            
-            <div id="blogPosts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog posts will be loaded here -->
+        </section>
+
+        <section id="events" class="bg-white py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                    <div class="max-w-2xl">
+                        <div class="catalan-line mb-6"></div>
+                        <h2 class="section-title">Calendari</h2>
+                        <p class="section-lead mt-5">Consulta les properes actuacions, assajos oberts i activitats de la colla.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button id="btn-mes" class="event-filter-btn filter-btn is-active rounded-md px-4 py-3 text-sm font-extrabold">Aquest mes</button>
+                        <button id="btn-proxims" class="event-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold">Pròxims</button>
+                        <button id="btn-tots" class="event-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold">Tots</button>
+                    </div>
+                </div>
+                <div id="eventCards" class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+                    <div class="card p-8 text-center text-slate-600">Carregant calendari...</div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-blue-50 catalan-pattern">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Contacte</h2>
-                <div class="w-24 h-1 bg-blue-300 mx-auto"></div>
-                <p class="text-gray-700 max-w-2xl mx-auto mt-4">Estem a la teva disposició per a qualsevol dubte o consulta</p>
-            </div>
-            
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-6">Envia'ns un missatge</h3>
-                    
-                    <form id="contactForm" class="space-y-6">
-                      <div>
-                        <label for="name" class="block text-gray-700 font-medium mb-2">Nom</label>
-                        <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <p class="text-red-500 text-sm mt-1 hidden" id="error-name">Aquest camp és obligatori.</p>
-                      </div>
-
-                      <div>
-                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                        <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <p class="text-red-500 text-sm mt-1 hidden" id="error-email">Aquest camp és obligatori.</p>
-                      </div>
-
-                      <div>
-                        <label for="subject" class="block text-gray-700 font-medium mb-2">Assumpte</label>
-                        <select id="subject" name="subject" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                          <option value="">Selecciona un assumpte</option>
-                          <option value="join">Vols unir-te</option>
-                          <option value="event">Informació sobre esdeveniments</option>
-                          <option value="collaboration">Col·laboració</option>
-                          <option value="other">Altres consultes</option>
+        <section id="gallery" class="bg-[#eaf9ff] py-20 text-[#14384d] sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+                    <div class="max-w-2xl">
+                        <div class="catalan-line mb-6"></div>
+                        <h2 class="font-['Playfair_Display'] text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">Galeria</h2>
+                        <p class="mt-5 text-lg leading-8 text-[#386276]">Records dels assajos, actuacions i moments que expliquen qui som. Filtra per categoria o per any.</p>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-[1fr_auto] lg:min-w-[480px]">
+                        <select id="galleryYearSelect" class="rounded-md border border-[#bfeafa] bg-white px-4 py-3 text-sm font-bold text-[#1d6f9a] focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                            <option value="Tots">Tots els anys</option>
                         </select>
-                        <p class="text-red-500 text-sm mt-1 hidden" id="error-subject">Aquest camp és obligatori.</p>
-                      </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="gallery-filter-btn filter-btn is-active rounded-md px-4 py-3 text-sm font-extrabold" data-category="Totes">Totes</button>
+                            <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Actuacions">Actuacions</button>
+                            <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Assajos">Assajos</button>
+                            <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Social">Social</button>
+                        </div>
+                    </div>
+                </div>
 
-                      <div>
-                        <label for="message" class="block text-gray-700 font-medium mb-2">Missatge</label>
-                        <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        <p class="text-red-500 text-sm mt-1 hidden" id="error-message">Aquest camp és obligatori.</p>
-                      </div>
+                <div id="galleryGrid" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5" aria-live="polite">
+                    <div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">Carregant galeria...</div>
+                </div>
 
-                      <button type="submit" class="btn-primary px-8 py-3 rounded-full font-bold text-white inline-block">Enviar missatge</button>
+                <div class="mt-8 flex flex-col items-center gap-4">
+                    <p id="galleryStatus" class="text-sm font-semibold text-[#386276]"></p>
+                    <button id="showMoreGallery" type="button" class="hidden rounded-md bg-white px-6 py-3 text-sm font-extrabold text-[#1d6f9a] transition hover:bg-[#8edaf6]">
+                        Mostrar més <i class="fas fa-arrow-down ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div id="galleryModal" class="gallery-modal-backdrop fixed inset-0 z-[80] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle" aria-describedby="galleryModalDescription">
+            <div class="relative w-full max-w-6xl overflow-hidden rounded-md bg-white shadow-2xl">
+                <button id="galleryModalClose" type="button" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-md bg-white/95 text-[#1d6f9a] shadow-lg transition hover:bg-[#dff6ff]" aria-label="Tancar imatge">
+                    <i class="fas fa-xmark text-xl"></i>
+                </button>
+                <div class="grid lg:grid-cols-[1.55fr_0.85fr]">
+                    <div class="flex min-h-[320px] items-center justify-center bg-[#eaf9ff]">
+                        <img id="galleryModalImage" src="" alt="" class="gallery-modal-image w-full object-contain" referrerpolicy="no-referrer">
+                    </div>
+                    <div class="flex flex-col justify-center p-6 sm:p-8">
+                        <p id="galleryModalMeta" class="text-sm font-extrabold uppercase tracking-[0.16em] text-[#4bb6e8]"></p>
+                        <h3 id="galleryModalTitle" class="mt-3 text-3xl font-bold text-[#1d6f9a] sm:text-4xl"></h3>
+                        <p id="galleryModalDescription" class="mt-5 whitespace-pre-line text-base leading-8 text-[#386276]"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="news" class="bg-white py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+                    <div class="max-w-2xl">
+                        <div class="catalan-line mb-6"></div>
+                        <h2 class="section-title">Blog</h2>
+                        <p class="section-lead mt-5">Les últimes notícies, cròniques i històries de la colla.</p>
+                    </div>
+                    <div id="blogSeasonWrap" class="hidden">
+                        <label for="blogSeasonSelect" class="mb-2 block text-sm font-extrabold text-[#1d6f9a]">Temporada</label>
+                        <select id="blogSeasonSelect" class="rounded-md border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-[#1d6f9a] focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                            <option value="Totes">Totes les temporades</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="blogPosts" class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+                    <div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">Carregant blog...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="bg-[#dff6ff] py-20 text-[#14384d] sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-3xl text-center">
+                    <div class="catalan-line mx-auto mb-6"></div>
+                    <h2 class="font-['Playfair_Display'] text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">Uneix-te a nosaltres</h2>
+                    <p class="mt-5 text-lg leading-8 text-[#386276]">No cal experiència prèvia. Vine a provar un assaig, coneix l'equip i descobreix quin lloc pots ocupar dins la colla.</p>
+                </div>
+
+                <div class="mt-12 grid gap-10 lg:grid-cols-2">
+                    <div>
+                        <h3 class="text-3xl font-bold">Com unir-te</h3>
+                        <div class="mt-8 grid gap-5">
+                            <div class="flex gap-4">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#5fc0ec] font-extrabold text-white">1</span>
+                                <div>
+                                    <h4 class="font-extrabold">Assisteix a un assaig</h4>
+                                    <p class="mt-2 leading-7 text-[#386276]">Vine a conèixer-nos els dimecres o divendres a les 19:00 a la UIB.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#4bb6e8] font-extrabold text-white">2</span>
+                                <div>
+                                    <h4 class="font-extrabold">Parla amb nosaltres</h4>
+                                    <p class="mt-2 leading-7 text-[#386276]">T'explicarem com funcionen els assajos, els equips i les primeres passes dins la colla.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#8edaf6] font-extrabold text-[#14384d]">3</span>
+                                <div>
+                                    <h4 class="font-extrabold">Formalitza la inscripció</h4>
+                                    <p class="mt-2 leading-7 text-[#386276]">Quan ho tenguis clar, només caldrà omplir la fitxa i sumar-te a l'activitat de la colla.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-9 inline-block rounded-md bg-white px-7 py-4 font-extrabold text-[#1d6f9a] transition hover:bg-[#8edaf6]">Inscriu-te ara</a>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-bold">Preguntes freqüents</h3>
+                        <div class="mt-8 divide-y divide-[#bfeafa] border-y border-[#bfeafa]">
+                            <div class="py-5">
+                                <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-1">
+                                    <span>Quins són els requisits per unir-se?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="answer-1" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                                    <p class="pt-3 leading-7 text-[#386276]">No hi ha requisits específics. Tothom és benvingut, amb o sense experiència.</p>
+                                </div>
+                            </div>
+                            <div class="py-5">
+                                <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-2">
+                                    <span>Quina és la quota anual?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="answer-2" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                                    <p class="pt-3 leading-7 text-[#386276]">No tenim quota anual.</p>
+                                </div>
+                            </div>
+                            <div class="py-5">
+                                <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-3">
+                                    <span>Quants d'assajos hi ha per setmana?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="answer-3" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                                    <p class="pt-3 leading-7 text-[#386276]">Tenim dos assajos per setmana, dimecres i divendres de 19:00 a 21:00.</p>
+                                </div>
+                            </div>
+                            <div class="py-5">
+                                <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-4">
+                                    <span>Puc participar si no tinc experiència?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div id="answer-4" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                                    <p class="pt-3 leading-7 text-[#386276]">Sí. La colla t'acompanyarà perquè aprenguis de manera progressiva i segura.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-[#f0fbff] py-20 sm:py-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-3xl text-center">
+                    <div class="catalan-line mx-auto mb-6"></div>
+                    <h2 class="section-title">Contacte</h2>
+                    <p class="section-lead mt-5">Escriu-nos per venir a un assaig, demanar informació o proposar una col·laboració.</p>
+                </div>
+
+                <div class="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+                    <form id="contactForm" class="card grid gap-5 p-6 sm:p-8">
+                        <div>
+                            <label for="name" class="mb-2 block font-bold text-[#1d6f9a]">Nom</label>
+                            <input type="text" id="name" name="name" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                            <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-name">Aquest camp és obligatori.</p>
+                        </div>
+                        <div>
+                            <label for="email" class="mb-2 block font-bold text-[#1d6f9a]">Email</label>
+                            <input type="email" id="email" name="email" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                            <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-email">Aquest camp és obligatori.</p>
+                        </div>
+                        <div>
+                            <label for="subject" class="mb-2 block font-bold text-[#1d6f9a]">Assumpte</label>
+                            <select id="subject" name="subject" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                                <option value="">Selecciona un assumpte</option>
+                                <option value="join">Vull unir-me</option>
+                                <option value="event">Informació sobre calendari</option>
+                                <option value="collaboration">Col·laboració</option>
+                                <option value="other">Altres consultes</option>
+                            </select>
+                            <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-subject">Aquest camp és obligatori.</p>
+                        </div>
+                        <div>
+                            <label for="message" class="mb-2 block font-bold text-[#1d6f9a]">Missatge</label>
+                            <textarea id="message" name="message" rows="5" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]"></textarea>
+                            <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-message">Aquest camp és obligatori.</p>
+                        </div>
+                        <button type="submit" class="btn-primary rounded-md px-7 py-4 font-extrabold transition">Enviar missatge</button>
                     </form>
 
-                </div>
-                
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-6">Altres formes de contacte</h3>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-1">On som?</h4>
-                                <p>Carrer de l'Ullastre<br>Rotonda del Parc Bit</p>
+                    <div class="grid content-start gap-5">
+                        <div class="card p-6">
+                            <div class="flex gap-4">
+                                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#1d6f9a] text-white"><i class="fas fa-location-dot"></i></span>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-[#1d6f9a]">On som?</h3>
+                                    <p class="mt-2 leading-7 text-slate-600">Carrer de l'Ullastre<br>UIB</p>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-1">Email</h4>
-                                <p>gambirots@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold mb-1">Horari d'assajos</h4>
-                                <p>Dimecres: 19:00 - 21:00<br>Divendres: 19:00 - 21:00</p>
+                        <div class="card p-6">
+                            <div class="flex gap-4">
+                                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#4bb6e8] text-white"><i class="fas fa-envelope"></i></span>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-[#1d6f9a]">Email</h3>
+                                    <p class="mt-2 leading-7 text-slate-600">gambirots@gmail.com</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="mt-10">
-                        <h4 class="text-xl font-bold text-blue-600 mb-4">Segueix-nos a les xarxes</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://www.instagram.com/gambirots/" target="_blank" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                        <div class="card p-6">
+                            <div class="flex gap-4">
+                                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#5fc0ec] text-white"><i class="fas fa-clock"></i></span>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-[#1d6f9a]">Assajos</h3>
+                                    <p class="mt-2 leading-7 text-slate-600">Dimecres i divendres<br>19:00 - 21:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://www.instagram.com/gambirots/" target="_blank" rel="noreferrer" class="flex h-12 w-12 items-center justify-center rounded-md bg-[#1d6f9a] text-white transition hover:bg-[#5fc0ec]" aria-label="Instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://x.com/gambirots" target="_blank" class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <a href="https://x.com/gambirots" target="_blank" rel="noreferrer" class="flex h-12 w-12 items-center justify-center rounded-md bg-[#1d6f9a] text-white transition hover:bg-[#5fc0ec]" aria-label="X">
                                 <i class="fab fa-twitter"></i>
                             </a>
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-blue-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4 text-center">Gambirots</h3>
-                    <p class="mb-4 text-center">Colla castellera fundada el 2003. Tradició, passió i esforç col·lectiu.</p>
-                    <div class="flex space-x-4 justify-center">
-                        <a href="https://www.instagram.com/gambirots/" target="_blank" class="text-blue-300 hover:text-white"><i class="fab fa-instagram"></i></a>
-                        <a href="https://x.com/gambirots" target="_blank" class="text-blue-300 hover:text-white"><i class="fab fa-twitter"></i></a>
-
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <h3 class="text-xl font-bold mb-4 text-center">Enllaços ràpids</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="hover:text-blue-300 transition">Inici</a></li>
-                        <li><a href="#about" class="hover:text-blue-300 transition">Qui som</a></li>
-                        <li><a href="#events" class="hover:text-blue-300 transition">Esdeveniments</a></li>
-                        <li><a href="#gallery" class="hover:text-blue-300 transition">Galeria</a></li>
-                        <li><a href="#join" class="hover:text-blue-300 transition">Uneix-te</a></li>
-                        <li><a href="#news" class="hover:text-blue-300 transition">Blog</a></li>
-                        <li><a href="#contact" class="hover:text-blue-300 transition">Contacte</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-bold mb-4 text-center">Contacte</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-blue-300 text-center"></i>
-                            <span>Carrer de l'Ullastre, Palma de Mallorca (Rotonda del Parc Bit)</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 mr-2 text-blue-300 text-center"></i>
-                            <span>gambirots@gmail.com</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer class="bg-[#eaf9ff] py-12 text-[#14384d]">
+        <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
+            <div>
+                <h3 class="text-2xl font-bold">Gambirots de la UIB</h3>
+                <p class="mt-4 leading-7 text-[#386276]">Colla castellera universitària. Tradició, passió i esforç col·lectiu.</p>
             </div>
-            
-            <div class="border-t border-blue-800 mt-12 pt-8 text-center text-blue-300">
-                <p>&copy; 2025 Colla Castellera Gambirots de la UIB. Tots els drets reservats.</p>
+            <div>
+                <h3 class="text-2xl font-bold">Apartats</h3>
+                <ul class="mt-4 grid gap-2 text-[#386276]">
+                    <li><a href="#about" class="transition hover:text-[#4bb6e8]">Qui som?</a></li>
+                    <li><a href="#organization" class="transition hover:text-[#4bb6e8]">Organització</a></li>
+                    <li><a href="#events" class="transition hover:text-[#4bb6e8]">Calendari</a></li>
+                    <li><a href="#gallery" class="transition hover:text-[#4bb6e8]">Galeria</a></li>
+                    <li><a href="#news" class="transition hover:text-[#4bb6e8]">Blog</a></li>
+                    <li><a href="#join" class="transition hover:text-[#4bb6e8]">Uneix-te</a></li>
+                    <li><a href="#contact" class="transition hover:text-[#4bb6e8]">Contacte</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold">Contacte</h3>
+                <ul class="mt-4 grid gap-3 text-[#386276]">
+                    <li class="flex gap-3"><i class="fas fa-envelope mt-1 text-[#4bb6e8]"></i><span>gambirots@gmail.com</span></li>
+                    <li class="flex gap-3"><i class="fas fa-location-dot mt-1 text-[#4bb6e8]"></i><span>UIB</span></li>
+                    <li class="flex gap-3"><i class="fas fa-clock mt-1 text-[#4bb6e8]"></i><span>Dimecres i divendres, 19:00 - 21:00</span></li>
+                </ul>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition opacity-0 invisible">
+    <button id="backToTop" type="button" class="back-to-top fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-md bg-[#5fc0ec] text-white shadow-xl" aria-label="Tornar a dalt">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('button').addEventListener('click', function() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        });
+        const eventCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
+        const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv';
+        const blogCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrQylCz4i1hGkr9XB0pPl8rhlXwR92AcamEXMgfAfKGr-hlCZLssd1o7h1zMLL0c-Ji0kwfzcuph2R/pub?output=csv';
 
-        // FAQ accordion
-        const faqButtons = document.querySelectorAll('#contact button');
-        faqButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const answer = this.nextElementSibling;
-                answer.classList.toggle('hidden');
-                
-                const icon = this.querySelector('i');
-                if (icon.classList.contains('fa-chevron-down')) {
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-        });
-
-        // Back to top button
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopButton.classList.remove('opacity-100', 'visible');
-                backToTopButton.classList.add('opacity-0', 'invisible');
-            }
-        });
-        
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobileMenu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-    </script>
-
-    <!-- Esdeveniments script -->
-
-    <script>
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
+        const galleryPageSize = 5;
         let allEvents = [];
+        let allImages = [];
+        let allPosts = [];
+        let activeGalleryCategory = 'Totes';
+        let activeGalleryYear = 'Tots';
+        let galleryVisibleCount = galleryPageSize;
+        let activeBlogSeason = 'Totes';
 
-        function csvToArray(str, delimiter = ",") {
-            const rows = str.trim().split("\n");
-            const headers = rows.shift().split(delimiter);
-            return rows.map(row => {
-                const values = row.split(delimiter);
-                return headers.reduce((obj, header, i) => {
-                    obj[header.trim()] = values[i]?.trim();
-                    return obj;
-                }, {});
-            });
+        function parseCsv(text) {
+            const rows = [];
+            let current = '';
+            let row = [];
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i += 1) {
+                const char = text[i];
+                const next = text[i + 1];
+
+                if (char === '"' && inQuotes && next === '"') {
+                    current += '"';
+                    i += 1;
+                } else if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    row.push(current.trim());
+                    current = '';
+                } else if ((char === '\n' || char === '\r') && !inQuotes) {
+                    if (char === '\r' && next === '\n') {
+                        i += 1;
+                    }
+                    row.push(current.trim());
+                    if (row.some(Boolean)) {
+                        rows.push(row);
+                    }
+                    current = '';
+                    row = [];
+                } else {
+                    current += char;
+                }
+            }
+
+            row.push(current.trim());
+            if (row.some(Boolean)) {
+                rows.push(row);
+            }
+
+            const headers = (rows.shift() || []).map((header) => header.trim());
+            return rows.map((values) => headers.reduce((item, header, index) => {
+                item[header] = values[index] || '';
+                return item;
+            }, {}));
+        }
+
+        function safeText(value, fallback = '') {
+            return value && String(value).trim() ? String(value).trim() : fallback;
+        }
+
+        function escapeHtml(value) {
+            const span = document.createElement('span');
+            span.textContent = safeText(value);
+            return span.innerHTML;
+        }
+
+        function getImageTitle(image) {
+            return safeText(
+                image.Title || image.Titol || image.Título || image.Titulo || image.Text,
+                safeText(image.Category, 'Fotografia')
+            );
+        }
+
+        function getImageDescription(image) {
+            return safeText(
+                image.Description || image.Descripcio || image.Descripción || image['Descripció'] || image.Text,
+                'Sense descripció disponible.'
+            );
         }
 
         function formatDate(dateStr) {
-            const options = { day: '2-digit', month: 'short' };
             const date = new Date(dateStr);
-            return date.toLocaleDateString('ca-ES', options).toUpperCase();
+            if (Number.isNaN(date.getTime())) {
+                return safeText(dateStr, 'Data pendent');
+            }
+
+            return date.toLocaleDateString('ca-ES', { day: '2-digit', month: 'short' }).toUpperCase();
         }
+
+        function setActiveButton(buttons, activeButton) {
+            buttons.forEach((button) => {
+                button.classList.toggle('is-active', button === activeButton);
+            });
+        }
+
+        function handleImageError(image) {
+            const parent = image.parentElement;
+            image.removeAttribute('onerror');
+            image.style.display = 'none';
+
+            if (!parent || parent.querySelector('.fallback-icon')) {
+                return;
+            }
+
+            parent.classList.add('fallback-media');
+            const icon = document.createElement('span');
+            icon.className = 'fallback-icon';
+            icon.innerHTML = '<i class="fas fa-people-group"></i>';
+            parent.appendChild(icon);
+        }
+
+        window.handleImageError = handleImageError;
 
         function renderEvents(events) {
-            const container = document.getElementById("eventCards");
-            container.innerHTML = "";
+            const container = document.getElementById('eventCards');
+            const sortedEvents = [...events].sort((a, b) => new Date(a.Date) - new Date(b.Date));
+            container.innerHTML = '';
 
-            events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+            if (!sortedEvents.length) {
+                container.innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">Ara mateix no hi ha activitats per a aquest filtre.</div>';
+                return;
+            }
 
-            for (const event of events) {
-                const card = document.createElement("div");
-                card.className = "event-card bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-500 opacity-0 translate-y-4";
+            sortedEvents.forEach((event) => {
+                const card = document.createElement('article');
+                card.className = 'card overflow-hidden transition duration-300 hover:-translate-y-1';
                 card.innerHTML = `
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        ${event.Image ? `<img src="${event.Image}" alt="Event image" class="w-full h-full object-cover">` : `<i class="fas fa-calendar-alt text-blue-600 text-5xl"></i>`}
+                    <div class="h-52 bg-[#f0fbff]">
+                        ${event.Image ? `<img src="${event.Image}" alt="${safeText(event.Title, 'Activitat de Gambirots')}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">` : '<div class="flex h-full items-center justify-center text-5xl text-[#4bb6e8]"><i class="fas fa-calendar-days"></i></div>'}
                     </div>
                     <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600 font-bold">${formatDate(event.Date)}</span>
-                            <span class="text-sm text-gray-600">${event.Time}</span>
+                        <div class="mb-4 flex items-center justify-between gap-4 text-sm font-extrabold">
+                            <span class="text-[#5fc0ec]">${formatDate(event.Date)}</span>
+                            <span class="text-slate-500">${safeText(event.Time, 'Hora pendent')}</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">${event.Title}</h3>
-                        <p class="text-gray-700 mb-4">${event.Description}</p>
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">${safeText(event.Title, 'Activitat')}</h3>
+                        <p class="mt-3 leading-7 text-slate-600">${safeText(event.Description, 'Més informació pròximament.')}</p>
                     </div>
                 `;
-
                 container.appendChild(card);
-
-                // Animate card entrance
-                requestAnimationFrame(() => {
-                    card.classList.remove("opacity-0", "translate-y-4");
-                    card.classList.add("opacity-100", "translate-y-0");
-                });
-            }
+            });
         }
-
-
 
         function filterAquestMes(events) {
             const now = new Date();
-            return events.filter(e => {
-                const d = new Date(e.Date);
-                return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+            return events.filter((event) => {
+                const date = new Date(event.Date);
+                return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
             });
         }
 
         function filterProxims(events) {
             const now = new Date();
-            return events.filter(e => new Date(e.Date) >= now);
+            now.setHours(0, 0, 0, 0);
+            return events.filter((event) => new Date(event.Date) >= now);
         }
 
-        function filterTots(events) {
-            return events;
-        }
-
-        function setActiveButton(clickedId) {
+        function wireEventFilters() {
             const buttons = document.querySelectorAll('.event-filter-btn');
-            buttons.forEach(btn => {
-                if (btn.id === clickedId) {
-                    btn.classList.remove('bg-white', 'text-blue-600');
-                    btn.classList.add('bg-blue-600', 'text-white');
-                } else {
-                    btn.classList.remove('bg-blue-600', 'text-white');
-                    btn.classList.add('bg-white', 'text-blue-600');
-                }
-            });
-        }
+            const filters = {
+                'btn-mes': () => filterAquestMes(allEvents),
+                'btn-proxims': () => filterProxims(allEvents),
+                'btn-tots': () => allEvents
+            };
 
-        fetch(csvUrl)
-            .then(res => res.text())
-            .then(text => {
-                allEvents = csvToArray(text);
-                renderEvents(filterAquestMes(allEvents)); // Only events from "Aquest mes" appear when website loads
-                setActiveButton('btn-mes'); // Set "Aquest mes" as default active
-            })
-            .catch(err => console.error('Error loading events:', err));
-
-        // Button click listeners
-        document.getElementById('btn-mes').addEventListener('click', () => {
-            renderEvents(filterAquestMes(allEvents));
-            setActiveButton('btn-mes');
-        });
-        document.getElementById('btn-proxims').addEventListener('click', () => {
-            renderEvents(filterProxims(allEvents));
-            setActiveButton('btn-proxims');
-        });
-        document.getElementById('btn-tots').addEventListener('click', () => {
-            renderEvents(filterTots(allEvents));
-            setActiveButton('btn-tots');
-        });
-    </script>
-
-<!-- Gallery script -->
-
-    <script>
-        const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv';
-        let allImages = [];
-
-        function csvToGalleryArray(str, delimiter = ",") {
-            const rows = str.trim().split("\n");
-            const headers = rows.shift().split(delimiter);
-            return rows.map(row => {
-                const values = row.split(delimiter);
-                return headers.reduce((obj, header, i) => {
-                    obj[header.trim()] = values[i]?.trim();
-                    return obj;
-                }, {});
-            });
-        }
-
-        function renderGallery(images) {
-            const container = document.getElementById("galleryGrid");
-            container.innerHTML = "";
-
-            images.forEach((img, index) => {
-                const div = document.createElement("div");
-                div.className = "gallery-item relative overflow-hidden rounded-lg shadow-md opacity-0 translate-y-5 transition-all duration-700 inline-block max-w-full";
-
-                div.innerHTML = `
-                    <div class="relative cursor-pointer group inline-block max-w-full">
-                        <img src="${img.URL}" alt="${img.Category}" class="object-contain max-w-[100%] max-h-[500px] w-auto h-auto mx-auto">
-                        <div class="absolute inset-0 bg-black bg-opacity-60 text-white flex items-center justify-center text-center text-lg font-semibold opacity-0 transition-opacity duration-500 pointer-events-none p-4" data-index="${index}">
-                            ${img.Text || ""}
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(div);
-
-                // Animate appearance
-                setTimeout(() => {
-                    div.classList.remove("opacity-0", "translate-y-5");
-                    div.classList.add("opacity-100", "translate-y-0");
-                }, 50);
-
-                // Add toggle click behavior
-                const group = div.querySelector(".group");
-                const overlay = group.querySelector("div[data-index]");
-
-                group.addEventListener("click", () => {
-                    const isVisible = overlay.classList.contains("opacity-100");
-
-                    if (isVisible) {
-                        overlay.classList.remove("opacity-100");
-                        overlay.classList.add("opacity-0", "pointer-events-none");
-                    } else {
-                        overlay.classList.remove("opacity-0", "pointer-events-none");
-                        overlay.classList.add("opacity-100");
-                    }
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    setActiveButton(buttons, button);
+                    renderEvents(filters[button.id]());
                 });
             });
         }
 
+        function getImageYear(image) {
+            const source = [
+                image.Year,
+                image.Any,
+                image.Anys,
+                image.Data,
+                image.Date,
+                image.Text
+            ].filter(Boolean).join(' ');
+            const match = String(source).match(/\b(19\d{2}|20\d{2})\b/);
+            return match ? match[0] : 'Sense any';
+        }
 
+        function matchesCategory(image, category) {
+            if (category === 'Totes') {
+                return true;
+            }
 
+            return safeText(image.Category).toLocaleLowerCase('ca-ES') === category.toLocaleLowerCase('ca-ES');
+        }
 
-        function filterGallery(category) {
-            const filtered = category === 'Totes'
-                ? allImages
-                : allImages.filter(img => img.Category === category);
-
-            renderGallery(filtered);
-
-            // Update button styles
-            document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white');
-                btn.classList.add('bg-white', 'text-blue-600');
+        function getFilteredGallery() {
+            return allImages.filter((image) => {
+                const matchesYear = activeGalleryYear === 'Tots' || getImageYear(image) === activeGalleryYear;
+                return matchesYear && matchesCategory(image, activeGalleryCategory);
             });
-            document.getElementById(`btn-${category.toLowerCase()}`).classList.remove('bg-white', 'text-blue-600');
-            document.getElementById(`btn-${category.toLowerCase()}`).classList.add('bg-blue-600', 'text-white');
         }
 
-        function loadGallery() {
-            fetch(galleryCsvUrl)
-                .then(res => res.text())
-                .then(text => {
-                    allImages = csvToGalleryArray(text);
-                    filterGallery('Actuacions'); // Show only "Actuacions" on load
-                })
-                .catch(err => console.error("Error loading gallery:", err));
+        function populateGalleryYears() {
+            const select = document.getElementById('galleryYearSelect');
+            const years = [...new Set(allImages.map(getImageYear))]
+                .sort((a, b) => {
+                    if (a === 'Sense any') return 1;
+                    if (b === 'Sense any') return -1;
+                    return Number(b) - Number(a);
+                });
+
+            select.innerHTML = '<option value="Tots">Tots els anys</option>';
+            years.forEach((year) => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                select.appendChild(option);
+            });
         }
 
-        // Button listeners
-        document.getElementById('btn-totes').addEventListener('click', () => filterGallery('Totes'));
-        document.getElementById('btn-actuacions').addEventListener('click', () => filterGallery('Actuacions'));
-        document.getElementById('btn-assajos').addEventListener('click', () => filterGallery('Assajos'));
-        document.getElementById('btn-social').addEventListener('click', () => filterGallery('Social'));
+        function openGalleryModal(image) {
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('galleryModalImage');
+            const modalMeta = document.getElementById('galleryModalMeta');
+            const modalTitle = document.getElementById('galleryModalTitle');
+            const modalDescription = document.getElementById('galleryModalDescription');
+            const title = getImageTitle(image);
+            const year = getImageYear(image);
+            const metaParts = [safeText(image.Category), year !== 'Sense any' ? year : ''].filter(Boolean);
 
-        loadGallery();
-    </script>
+            modalImage.src = image.URL;
+            modalImage.alt = title;
+            modalImage.onerror = () => handleImageError(modalImage);
+            modalMeta.textContent = metaParts.join(' · ');
+            modalTitle.textContent = title;
+            modalDescription.textContent = getImageDescription(image);
 
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('galleryModalClose').focus();
+        }
 
-        <!-- Blog script -->
-    <script>
-        const blogCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrQylCz4i1hGkr9XB0pPl8rhlXwR92AcamEXMgfAfKGr-hlCZLssd1o7h1zMLL0c-Ji0kwfzcuph2R/pub?output=csv';
-        let allPosts = [];
+        function closeGalleryModal() {
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('galleryModalImage');
 
-        function csvToArray(str, delimiter = ",") {
-            const rows = str.trim().split("\n");
-            const headers = rows.shift().split(delimiter);
-            return rows.map(row => {
-                const values = row.split(delimiter);
-                return headers.reduce((obj, header, i) => {
-                    obj[header.trim()] = values[i]?.trim();
-                    return obj;
-                }, {});
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            modalImage.removeAttribute('src');
+            modalImage.removeAttribute('alt');
+            document.body.style.overflow = '';
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryGrid');
+            const status = document.getElementById('galleryStatus');
+            const showMoreButton = document.getElementById('showMoreGallery');
+            const filteredImages = getFilteredGallery();
+            const visibleImages = filteredImages.slice(0, galleryVisibleCount);
+
+            container.innerHTML = '';
+
+            if (!filteredImages.length) {
+                container.innerHTML = '<div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">No hi ha fotos per a aquest filtre.</div>';
+                status.textContent = '';
+                showMoreButton.classList.add('hidden');
+                return;
+            }
+
+            visibleImages.forEach((image) => {
+                const card = document.createElement('article');
+                const caption = safeText(image.Text, safeText(image.Category, 'Gambirots'));
+                const escapedCaption = escapeHtml(caption);
+                card.className = 'gallery-item overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]';
+                card.innerHTML = `
+                    <button type="button" class="group relative block w-full overflow-hidden text-left" aria-label="Obrir ${escapedCaption}">
+                        <img src="${image.URL}" alt="${escapedCaption}" class="w-full" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
+                        <span class="gallery-overlay absolute inset-x-0 bottom-0 flex min-h-24 items-end p-4 opacity-100">
+                            <span class="text-sm font-bold leading-5 text-white">${escapedCaption}</span>
+                        </span>
+                    </button>
+                `;
+                card.querySelector('button').addEventListener('click', () => openGalleryModal(image));
+                container.appendChild(card);
+            });
+
+            status.textContent = `Mostrant ${visibleImages.length} de ${filteredImages.length} fotos`;
+            showMoreButton.classList.toggle('hidden', galleryVisibleCount >= filteredImages.length);
+        }
+
+        function resetGalleryAndRender() {
+            galleryVisibleCount = galleryPageSize;
+            renderGallery();
+        }
+
+        function wireGalleryFilters() {
+            const buttons = document.querySelectorAll('.gallery-filter-btn');
+            const yearSelect = document.getElementById('galleryYearSelect');
+            const showMoreButton = document.getElementById('showMoreGallery');
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    activeGalleryCategory = button.dataset.category;
+                    setActiveButton(buttons, button);
+                    resetGalleryAndRender();
+                });
+            });
+
+            yearSelect.addEventListener('change', () => {
+                activeGalleryYear = yearSelect.value;
+                resetGalleryAndRender();
+            });
+
+            showMoreButton.addEventListener('click', () => {
+                galleryVisibleCount += galleryPageSize;
+                renderGallery();
+            });
+        }
+
+        function wireGalleryModal() {
+            const modal = document.getElementById('galleryModal');
+            const closeButton = document.getElementById('galleryModalClose');
+
+            closeButton.addEventListener('click', closeGalleryModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeGalleryModal();
+                }
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeGalleryModal();
+                }
+            });
+        }
+
+        function getPostSeason(post) {
+            const directSeason = safeText(post.Season || post.Temporada || post.Temporada);
+            if (directSeason) {
+                return directSeason;
+            }
+
+            const source = safeText(post.Date || post.Data);
+            const year = source.match(/\b(19\d{2}|20\d{2})\b/);
+            return year ? year[0] : 'Sense temporada';
+        }
+
+        function populateBlogSeasons() {
+            const wrap = document.getElementById('blogSeasonWrap');
+            const select = document.getElementById('blogSeasonSelect');
+            const seasons = [...new Set(allPosts.map(getPostSeason))]
+                .filter(Boolean)
+                .sort((a, b) => b.localeCompare(a, 'ca-ES'));
+
+            if (seasons.length <= 1) {
+                wrap.classList.add('hidden');
+                return;
+            }
+
+            wrap.classList.remove('hidden');
+            select.innerHTML = '<option value="Totes">Totes les temporades</option>';
+            seasons.forEach((season) => {
+                const option = document.createElement('option');
+                option.value = season;
+                option.textContent = season;
+                select.appendChild(option);
             });
         }
 
         function renderBlogPosts(posts) {
-            const container = document.getElementById("blogPosts");
-            container.innerHTML = "";
+            const container = document.getElementById('blogPosts');
+            const filteredPosts = activeBlogSeason === 'Totes'
+                ? posts
+                : posts.filter((post) => getPostSeason(post) === activeBlogSeason);
 
-            posts.forEach((post, index) => {
-                const card = document.createElement("div");
-                card.className = "bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300";
+            container.innerHTML = '';
+
+            if (!filteredPosts.length) {
+                container.innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No hi ha entrades per a aquesta temporada.</div>';
+                return;
+            }
+
+            filteredPosts.forEach((post, index) => {
+                const card = document.createElement('article');
+                const bodyId = `post-body-${index}`;
+                const buttonId = `post-button-${index}`;
+                card.className = 'card overflow-hidden';
                 card.innerHTML = `
-                    <div class="h-48 bg-blue-200 flex items-center justify-center">
-                        ${post.Image ? `<img src="${post.Image}" alt="Post image" class="object-cover w-full h-full">` : `<i class="fas fa-newspaper text-blue-600 text-5xl"></i>`}
+                    <div class="h-52 bg-[#f0fbff]">
+                        ${post.Image ? `<img src="${post.Image}" alt="${safeText(post.Title, 'Entrada del blog')}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">` : '<div class="flex h-full items-center justify-center text-5xl text-[#4bb6e8]"><i class="fas fa-newspaper"></i></div>'}
                     </div>
                     <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm text-blue-600">${post.Date}</span>
-                            <span class="text-sm text-gray-600">${post.Author}</span>
+                        <div class="mb-4 flex items-center justify-between gap-4 text-sm font-bold text-slate-500">
+                            <span>${safeText(post.Date, safeText(post.Data, ''))}</span>
+                            <span>${safeText(post.Author, 'Gambirots')}</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">${post.Title}</h3>
-                        <p class="text-gray-700 mb-4">${post.Subtitle}</p>
-                        <button onclick="togglePostBody(${index})" id="btn-${index}" class="text-blue-600 font-medium flex items-center">
+                        <h3 class="text-2xl font-bold text-[#1d6f9a]">${safeText(post.Title, 'Entrada')}</h3>
+                        <p class="mt-3 leading-7 text-slate-600">${safeText(post.Subtitle, '')}</p>
+                        <button type="button" onclick="togglePostBody('${bodyId}', '${buttonId}')" id="${buttonId}" class="mt-5 flex items-center font-extrabold text-[#4bb6e8]">
                             Llegir més <i class="fas fa-arrow-right ml-2"></i>
                         </button>
-                        <div id="body-${index}" class="transition-all duration-500 ease-in-out max-h-0 overflow-hidden opacity-0 mt-4 text-gray-700 whitespace-pre-line"> 
-                            ${post.Body}
+                        <div id="${bodyId}" class="max-h-0 overflow-hidden whitespace-pre-line pt-0 leading-7 text-slate-600 opacity-0 transition-all duration-500">
+                            ${safeText(post.Body, '')}
                         </div>
-
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function togglePostBody(index) {
-            const bodyDiv = document.getElementById(`body-${index}`);
-            const btn = document.getElementById(`btn-${index}`);
-            const isExpanded = !bodyDiv.classList.contains("max-h-0");
+        function wireBlogSeasonFilter() {
+            const select = document.getElementById('blogSeasonSelect');
+            select.addEventListener('change', () => {
+                activeBlogSeason = select.value;
+                renderBlogPosts(allPosts);
+            });
+        }
+
+        function togglePostBody(bodyId, buttonId) {
+            const body = document.getElementById(bodyId);
+            const button = document.getElementById(buttonId);
+            const isExpanded = body.classList.contains('max-h-screen');
 
             if (isExpanded) {
-                bodyDiv.classList.add("max-h-0", "opacity-0");
-                bodyDiv.classList.remove("max-h-screen", "opacity-100");
-                btn.innerHTML = `Llegir més <i class="fas fa-arrow-right ml-2"></i>`;
+                body.classList.remove('max-h-screen', 'pt-4', 'opacity-100');
+                body.classList.add('max-h-0', 'pt-0', 'opacity-0');
+                button.innerHTML = 'Llegir més <i class="fas fa-arrow-right ml-2"></i>';
             } else {
-                bodyDiv.classList.remove("max-h-0", "opacity-0");
-                bodyDiv.classList.add("max-h-screen", "opacity-100");
-                btn.innerHTML = `Mostrar menys <i class="fas fa-arrow-up ml-2"></i>`;
+                body.classList.remove('max-h-0', 'pt-0', 'opacity-0');
+                body.classList.add('max-h-screen', 'pt-4', 'opacity-100');
+                button.innerHTML = 'Mostrar menys <i class="fas fa-arrow-up ml-2"></i>';
             }
         }
 
+        function wireNavigation() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const backToTop = document.getElementById('backToTop');
 
-
-
-        fetch(blogCsvUrl)
-            .then(res => res.text())
-            .then(text => {
-                allPosts = csvToArray(text);
-                renderBlogPosts(allPosts);
-            })
-            .catch(err => console.error("Error loading blog posts:", err));
-    </script>
-
-<!-- FAQ script -->
-    <script>
-        document.querySelectorAll('.faq-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const answerId = button.getAttribute('data-target');
-                const answer = document.getElementById(answerId);
-                const icon = button.querySelector('i');
-
-                const isExpanded = answer.classList.contains('max-h-96');
-
-                if (isExpanded) {
-                    answer.classList.remove('max-h-96', 'opacity-100');
-                    answer.classList.add('max-h-0', 'opacity-0');
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                } else {
-                    answer.classList.remove('max-h-0', 'opacity-0');
-                    answer.classList.add('max-h-96', 'opacity-100');
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                }
+            menuToggle.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                menuToggle.setAttribute('aria-expanded', String(!isOpen));
+                menuToggle.innerHTML = isOpen ? '<i class="fas fa-bars text-xl"></i>' : '<i class="fas fa-xmark text-xl"></i>';
             });
+
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        menuToggle.innerHTML = '<i class="fas fa-bars text-xl"></i>';
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                backToTop.classList.toggle('is-visible', window.scrollY > 520);
+            }, { passive: true });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        function wireFaqs() {
+            document.querySelectorAll('.faq-toggle').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const answer = document.getElementById(button.dataset.target);
+                    const icon = button.querySelector('i');
+                    const isExpanded = answer.classList.contains('max-h-96');
+
+                    answer.classList.toggle('max-h-96', !isExpanded);
+                    answer.classList.toggle('opacity-100', !isExpanded);
+                    answer.classList.toggle('max-h-0', isExpanded);
+                    answer.classList.toggle('opacity-0', isExpanded);
+                    icon.classList.toggle('fa-chevron-up', !isExpanded);
+                    icon.classList.toggle('fa-chevron-down', isExpanded);
+                });
+            });
+        }
+
+        function wireContactForm() {
+            document.getElementById('contactForm').addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const fields = [
+                    { input: document.getElementById('name'), error: document.getElementById('error-name') },
+                    { input: document.getElementById('email'), error: document.getElementById('error-email') },
+                    { input: document.getElementById('subject'), error: document.getElementById('error-subject') },
+                    { input: document.getElementById('message'), error: document.getElementById('error-message') }
+                ];
+                let valid = true;
+
+                fields.forEach(({ input, error }) => {
+                    const empty = !input.value.trim();
+                    input.classList.toggle('border-[#5fc0ec]', empty);
+                    error.classList.toggle('hidden', !empty);
+                    valid = valid && !empty;
+                });
+
+                if (!valid) {
+                    return;
+                }
+
+                fetch('https://formspree.io/f/xeogdaaj', {
+                    method: 'POST',
+                    body: new FormData(event.target),
+                    headers: { Accept: 'application/json' }
+                }).then((response) => {
+                    if (response.ok) {
+                        window.location.href = 'thankyou.html';
+                    } else {
+                        alert('Hi ha hagut un error. Si us plau, intenta-ho més tard.');
+                    }
+                }).catch(() => {
+                    alert('Hi ha hagut un error en enviar el formulari.');
+                });
+            });
+        }
+
+        async function loadEvents() {
+            try {
+                const response = await fetch(eventCsvUrl);
+                allEvents = parseCsv(await response.text());
+                const currentMonth = filterAquestMes(allEvents);
+                const upcoming = filterProxims(allEvents);
+                const buttons = document.querySelectorAll('.event-filter-btn');
+
+                if (currentMonth.length) {
+                    renderEvents(currentMonth);
+                    setActiveButton(buttons, document.getElementById('btn-mes'));
+                } else if (upcoming.length) {
+                    renderEvents(upcoming);
+                    setActiveButton(buttons, document.getElementById('btn-proxims'));
+                } else {
+                    renderEvents(allEvents);
+                    setActiveButton(buttons, document.getElementById('btn-tots'));
+                }
+            } catch (error) {
+                document.getElementById('eventCards').innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No s\'ha pogut carregar el calendari.</div>';
+                console.error('Error loading events:', error);
+            }
+        }
+
+        async function loadGallery() {
+            try {
+                const response = await fetch(galleryCsvUrl);
+                allImages = parseCsv(await response.text()).filter((image) => image.URL);
+                populateGalleryYears();
+                renderGallery();
+            } catch (error) {
+                document.getElementById('galleryGrid').innerHTML = '<div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">No s\'ha pogut carregar la galeria.</div>';
+                console.error('Error loading gallery:', error);
+            }
+        }
+
+        async function loadBlog() {
+            try {
+                const response = await fetch(blogCsvUrl);
+                allPosts = parseCsv(await response.text());
+                populateBlogSeasons();
+                renderBlogPosts(allPosts);
+            } catch (error) {
+                document.getElementById('blogPosts').innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No s\'ha pogut carregar el blog.</div>';
+                console.error('Error loading blog:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            wireNavigation();
+            wireEventFilters();
+            wireGalleryFilters();
+            wireGalleryModal();
+            wireBlogSeasonFilter();
+            wireFaqs();
+            wireContactForm();
+            loadEvents();
+            loadGallery();
+            loadBlog();
         });
     </script>
-
-
-<!-- Form script -->
-    <script>
-      document.getElementById("contactForm").addEventListener("submit", function (e) {
-        e.preventDefault(); // Stop default form behavior
-
-        const name = document.getElementById("name");
-        const email = document.getElementById("email");
-        const subject = document.getElementById("subject");
-        const message = document.getElementById("message");
-
-        const fields = [
-          { input: name, error: "error-name" },
-          { input: email, error: "error-email" },
-          { input: subject, error: "error-subject" },
-          { input: message, error: "error-message" }
-        ];
-
-        let valid = true;
-
-        fields.forEach(({ input, error }) => {
-          const errorElement = document.getElementById(error);
-
-          if (!input.value.trim()) {
-            input.classList.add("border-red-500");
-            errorElement.classList.remove("hidden");
-            valid = false;
-          } else {
-            input.classList.remove("border-red-500");
-            errorElement.classList.add("hidden");
-          }
-        });
-
-        if (!valid) return;
-
-        // If valid, submit via Formspree
-        const data = new FormData(e.target);
-
-        fetch("https://formspree.io/f/xeogdaaj", {
-          method: "POST",
-          body: data,
-          headers: {
-            'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            window.location.href = "thankyou.html";
-          } else {
-            alert("Hi ha hagut un error. Si us plau, intenta-ho més tard.");
-          }
-        }).catch(error => {
-          console.error("Error:", error);
-          alert("Hi ha hagut un error en enviar el formulari.");
-        });
-      });
-    </script>
-
-
-
-<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=EsMestre/espaigambirot" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</body>
 </html>
+
