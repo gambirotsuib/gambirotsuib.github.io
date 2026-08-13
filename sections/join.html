@@ -1,0 +1,104 @@
+<section id="join" class="bg-[#dff6ff] py-20 text-[#14384d] sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+            <div class="catalan-line mx-auto mb-6"></div>
+            <h2 class="font-['Playfair_Display'] text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">Uneix-te a nosaltres</h2>
+            <p class="mt-5 text-lg leading-8 text-[#386276]">No cal experiència prèvia. Vine a provar un assaig, coneix l'equip i descobreix quin lloc pots ocupar dins la colla.</p>
+        </div>
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-2">
+            <div>
+                <h3 class="text-3xl font-bold">Com unir-te</h3>
+                <div class="mt-8 grid gap-5">
+                    <div class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#5fc0ec] font-extrabold text-white">1</span>
+                        <div>
+                            <h4 class="font-extrabold">Assisteix a un assaig</h4>
+                            <p class="mt-2 leading-7 text-[#386276]">Vine a conèixer-nos els dimecres o divendres a les 19:00 a la UIB.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#4bb6e8] font-extrabold text-white">2</span>
+                        <div>
+                            <h4 class="font-extrabold">Parla amb nosaltres</h4>
+                            <p class="mt-2 leading-7 text-[#386276]">T'explicarem com funcionen els assajos, els equips i les primeres passes dins la colla.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#8edaf6] font-extrabold text-[#14384d]">3</span>
+                        <div>
+                            <h4 class="font-extrabold">Formalitza la inscripció</h4>
+                            <p class="mt-2 leading-7 text-[#386276]">Quan ho tenguis clar, només caldrà omplir la fitxa i sumar-te a l'activitat de la colla.</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#contact" class="mt-9 inline-block rounded-md bg-white px-7 py-4 font-extrabold text-[#1d6f9a] transition hover:bg-[#8edaf6]">Inscriu-te ara</a>
+            </div>
+
+            <div>
+                <h3 class="text-3xl font-bold">Preguntes freqüents</h3>
+                <div class="mt-8 divide-y divide-[#bfeafa] border-y border-[#bfeafa]">
+                    <div class="py-5">
+                        <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-1">
+                            <span>Quins són els requisits per unir-se?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="answer-1" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                            <p class="pt-3 leading-7 text-[#386276]">No hi ha requisits específics. Tothom és benvingut, amb o sense experiència.</p>
+                        </div>
+                    </div>
+                    <div class="py-5">
+                        <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-2">
+                            <span>Quina és la quota anual?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="answer-2" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                            <p class="pt-3 leading-7 text-[#386276]">No tenim quota anual.</p>
+                        </div>
+                    </div>
+                    <div class="py-5">
+                        <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-3">
+                            <span>Quants d'assajos hi ha per setmana?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="answer-3" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                            <p class="pt-3 leading-7 text-[#386276]">Tenim dos assajos per setmana, dimecres i divendres de 19:00 a 21:00.</p>
+                        </div>
+                    </div>
+                    <div class="py-5">
+                        <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left font-extrabold" data-target="answer-4">
+                            <span>Puc participar si no tinc experiència?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="answer-4" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+                            <p class="pt-3 leading-7 text-[#386276]">Sí. La colla t'acompanyarà perquè aprenguis de manera progressiva i segura.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function wireFaqs() {
+        document.querySelectorAll('.faq-toggle').forEach((button) => {
+            button.addEventListener('click', () => {
+                const answer = document.getElementById(button.dataset.target);
+                const icon = button.querySelector('i');
+                const isExpanded = answer.classList.contains('max-h-96');
+
+                answer.classList.toggle('max-h-96', !isExpanded);
+                answer.classList.toggle('opacity-100', !isExpanded);
+                answer.classList.toggle('max-h-0', isExpanded);
+                answer.classList.toggle('opacity-0', isExpanded);
+                icon.classList.toggle('fa-chevron-up', !isExpanded);
+                icon.classList.toggle('fa-chevron-down', isExpanded);
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        wireFaqs();
+    });
+</script>

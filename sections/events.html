@@ -1,0 +1,114 @@
+<section id="events" class="bg-white py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div class="max-w-2xl">
+                <div class="catalan-line mb-6"></div>
+                <h2 class="section-title">Calendari</h2>
+                <p class="section-lead mt-5">Consulta les properes actuacions, assajos oberts i activitats de la colla.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button id="btn-mes" class="event-filter-btn filter-btn is-active rounded-md px-4 py-3 text-sm font-extrabold">Aquest mes</button>
+                <button id="btn-proxims" class="event-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold">Pròxims</button>
+                <button id="btn-tots" class="event-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold">Tots</button>
+            </div>
+        </div>
+        <div id="eventCards" class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+            <div class="card p-8 text-center text-slate-600">Carregant calendari...</div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const eventCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
+    let allEvents = [];
+
+    function filterAquestMes(events) {
+        const now = new Date();
+        return events.filter((event) => {
+            const date = new Date(event.Date);
+            return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+        });
+    }
+
+    function filterProxims(events) {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        return events.filter((event) => new Date(event.Date) >= now);
+    }
+
+    function wireEventFilters() {
+        const buttons = document.querySelectorAll('.event-filter-btn');
+        const filters = {
+            'btn-mes': () => filterAquestMes(allEvents),
+            'btn-proxims': () => filterProxims(allEvents),
+            'btn-tots': () => allEvents
+        };
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                setActiveButton(buttons, button);
+                renderEvents(filters[button.id]());
+            });
+        });
+    }
+
+    async function loadEvents() {
+        try {
+            const response = await fetch(eventCsvUrl);
+            allEvents = parseCsv(await response.text());
+            const currentMonth = filterAquestMes(allEvents);
+            const upcoming = filterProxims(allEvents);
+            const buttons = document.querySelectorAll('.event-filter-btn');
+
+            if (currentMonth.length) {
+                renderEvents(currentMonth);
+                setActiveButton(buttons, document.getElementById('btn-mes'));
+            } else if (upcoming.length) {
+                renderEvents(upcoming);
+                setActiveButton(buttons, document.getElementById('btn-proxims'));
+            } else {
+                renderEvents(allEvents);
+                setActiveButton(buttons, document.getElementById('btn-tots'));
+            }
+        } catch (error) {
+            document.getElementById('eventCards').innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No s\'ha pogut carregar el calendari.</div>';
+            console.error('Error loading events:', error);
+        }
+    }
+
+    function renderEvents(events) {
+        const container = document.getElementById('eventCards');
+        const sortedEvents = [...events].sort((a, b) => new Date(a.Date) - new Date(b.Date));
+        container.innerHTML = '';
+
+        if (!sortedEvents.length) {
+            container.innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">Ara mateix no hi ha activitats per a aquest filtre.</div>';
+            return;
+        }
+
+        sortedEvents.forEach((event) => {
+            const card = document.createElement('article');
+            card.className = 'card overflow-hidden transition duration-300 hover:-translate-y-1';
+            card.innerHTML = `
+                <div class="h-52 bg-[#f0fbff]">
+                    ${event.Image ? `<img src="${event.Image}" alt="${safeText(event.Title, 'Activitat de Gambirots')}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">` : '<div class="flex h-full items-center justify-center text-5xl text-[#4bb6e8]"><i class="fas fa-calendar-days"></i></div>'}
+                </div>
+                <div class="p-6">
+                    <div class="mb-4 flex items-center justify-between gap-4 text-sm font-extrabold">
+                        <span class="text-[#5fc0ec]">${formatDate(event.Date)}</span>
+                        <span class="text-slate-500">${safeText(event.Time, 'Hora pendent')}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#1d6f9a]">${safeText(event.Title, 'Activitat')}</h3>
+                    <p class="mt-3 leading-7 text-slate-600">${safeText(event.Description, 'Més informació pròximament.')}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        wireEventFilters();
+        loadEvents();
+    });
+</script>

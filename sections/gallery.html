@@ -1,0 +1,258 @@
+<section id="gallery" class="bg-[#eaf9ff] py-20 text-[#14384d] sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <div class="max-w-2xl">
+                <div class="catalan-line mb-6"></div>
+                <h2 class="font-['Playfair_Display'] text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">Galeria</h2>
+                <p class="mt-5 text-lg leading-8 text-[#386276]">Records dels assajos, actuacions i moments que expliquen qui som. Filtra per categoria o per any.</p>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto] lg:min-w-[480px]">
+                <select id="galleryYearSelect" class="rounded-md border border-[#bfeafa] bg-white px-4 py-3 text-sm font-bold text-[#1d6f9a] focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                    <option value="Tots">Tots els anys</option>
+                </select>
+                <div class="flex flex-wrap gap-2">
+                    <button class="gallery-filter-btn filter-btn is-active rounded-md px-4 py-3 text-sm font-extrabold" data-category="Totes">Totes</button>
+                    <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Actuacions">Actuacions</button>
+                    <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Assajos">Assajos</button>
+                    <button class="gallery-filter-btn filter-btn rounded-md px-4 py-3 text-sm font-extrabold" data-category="Social">Social</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="galleryGrid" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5" aria-live="polite">
+            <div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">Carregant galeria...</div>
+        </div>
+
+        <div class="mt-8 flex flex-col items-center gap-4">
+            <p id="galleryStatus" class="text-sm font-semibold text-[#386276]"></p>
+            <button id="showMoreGallery" type="button" class="hidden rounded-md bg-white px-6 py-3 text-sm font-extrabold text-[#1d6f9a] transition hover:bg-[#8edaf6]">
+                Mostrar més <i class="fas fa-arrow-down ml-2"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<div id="galleryModal" class="gallery-modal-backdrop fixed inset-0 z-[80] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle" aria-describedby="galleryModalDescription">
+    <div class="relative w-full max-w-6xl overflow-hidden rounded-md bg-white shadow-2xl">
+        <button id="galleryModalClose" type="button" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-md bg-white/95 text-[#1d6f9a] shadow-lg transition hover:bg-[#dff6ff]" aria-label="Tancar imatge">
+            <i class="fas fa-xmark text-xl"></i>
+        </button>
+        <div class="grid lg:grid-cols-[1.55fr_0.85fr]">
+            <div class="flex min-h-[320px] items-center justify-center bg-[#eaf9ff]">
+                <img id="galleryModalImage" src="" alt="" class="gallery-modal-image w-full object-contain" referrerpolicy="no-referrer">
+            </div>
+            <div class="flex flex-col justify-center p-6 sm:p-8">
+                <p id="galleryModalMeta" class="text-sm font-extrabold uppercase tracking-[0.16em] text-[#4bb6e8]"></p>
+                <h3 id="galleryModalTitle" class="mt-3 text-3xl font-bold text-[#1d6f9a] sm:text-4xl"></h3>
+                <p id="galleryModalDescription" class="mt-5 whitespace-pre-line text-base leading-8 text-[#386276]"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv';
+    
+    const galleryPageSize = 5;
+    let allImages = [];
+    let activeGalleryCategory = 'Totes';
+    let activeGalleryYear = 'Tots';
+    let galleryVisibleCount = galleryPageSize;
+
+    function getImageTitle(image) {
+        return safeText(
+            image.Title || image.Titol || image.Título || image.Titulo || image.Text,
+            safeText(image.Category, 'Fotografia')
+        );
+    }
+
+    function getImageDescription(image) {
+        return safeText(
+            image.Description || image.Descripcio || image.Descripción || image['Descripció'] || image.Text,
+            'Sense descripció disponible.'
+        );
+    }
+    
+
+    function getImageYear(image) {
+        const source = [
+            image.Year,
+            image.Any,
+            image.Anys,
+            image.Data,
+            image.Date,
+            image.Text
+        ].filter(Boolean).join(' ');
+        const match = String(source).match(/\b(19\d{2}|20\d{2})\b/);
+        return match ? match[0] : 'Sense any';
+    }
+
+    function matchesCategory(image, category) {
+        if (category === 'Totes') {
+            return true;
+        }
+
+        return safeText(image.Category).toLocaleLowerCase('ca-ES') === category.toLocaleLowerCase('ca-ES');
+    }
+
+    function getFilteredGallery() {
+        return allImages.filter((image) => {
+            const matchesYear = activeGalleryYear === 'Tots' || getImageYear(image) === activeGalleryYear;
+            return matchesYear && matchesCategory(image, activeGalleryCategory);
+        });
+    }
+
+    function populateGalleryYears() {
+        const select = document.getElementById('galleryYearSelect');
+        const years = [...new Set(allImages.map(getImageYear))]
+            .sort((a, b) => {
+                if (a === 'Sense any') return 1;
+                if (b === 'Sense any') return -1;
+                return Number(b) - Number(a);
+            });
+
+        select.innerHTML = '<option value="Tots">Tots els anys</option>';
+        years.forEach((year) => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            select.appendChild(option);
+        });
+    }
+
+    function openGalleryModal(image) {
+        const modal = document.getElementById('galleryModal');
+        const modalImage = document.getElementById('galleryModalImage');
+        const modalMeta = document.getElementById('galleryModalMeta');
+        const modalTitle = document.getElementById('galleryModalTitle');
+        const modalDescription = document.getElementById('galleryModalDescription');
+        const title = getImageTitle(image);
+        const year = getImageYear(image);
+        const metaParts = [safeText(image.Category), year !== 'Sense any' ? year : ''].filter(Boolean);
+
+        modalImage.src = image.URL;
+        modalImage.alt = title;
+        modalImage.onerror = () => handleImageError(modalImage);
+        modalMeta.textContent = metaParts.join(' · ');
+        modalTitle.textContent = title;
+        modalDescription.textContent = getImageDescription(image);
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('galleryModalClose').focus();
+    }
+
+    function closeGalleryModal() {
+        const modal = document.getElementById('galleryModal');
+        const modalImage = document.getElementById('galleryModalImage');
+
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        modalImage.removeAttribute('src');
+        modalImage.removeAttribute('alt');
+        document.body.style.overflow = '';
+    }
+
+    function renderGallery() {
+        const container = document.getElementById('galleryGrid');
+        const status = document.getElementById('galleryStatus');
+        const showMoreButton = document.getElementById('showMoreGallery');
+        const filteredImages = getFilteredGallery();
+        const visibleImages = filteredImages.slice(0, galleryVisibleCount);
+
+        container.innerHTML = '';
+
+        if (!filteredImages.length) {
+            container.innerHTML = '<div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">No hi ha fotos per a aquest filtre.</div>';
+            status.textContent = '';
+            showMoreButton.classList.add('hidden');
+            return;
+        }
+
+        visibleImages.forEach((image) => {
+            const card = document.createElement('article');
+            const caption = safeText(image.Text, safeText(image.Category, 'Gambirots'));
+            const escapedCaption = escapeHtml(caption);
+            card.className = 'gallery-item overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]';
+            card.innerHTML = `
+                <button type="button" class="group relative block w-full overflow-hidden text-left" aria-label="Obrir ${escapedCaption}">
+                    <img src="${image.URL}" alt="${escapedCaption}" class="w-full" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
+                    <span class="gallery-overlay absolute inset-x-0 bottom-0 flex min-h-24 items-end p-4 opacity-100">
+                        <span class="text-sm font-bold leading-5 text-white">${escapedCaption}</span>
+                    </span>
+                </button>
+            `;
+            card.querySelector('button').addEventListener('click', () => openGalleryModal(image));
+            container.appendChild(card);
+        });
+
+        status.textContent = `Mostrant ${visibleImages.length} de ${filteredImages.length} fotos`;
+        showMoreButton.classList.toggle('hidden', galleryVisibleCount >= filteredImages.length);
+    }
+
+    function resetGalleryAndRender() {
+        galleryVisibleCount = galleryPageSize;
+        renderGallery();
+    }
+
+    function wireGalleryFilters() {
+        const buttons = document.querySelectorAll('.gallery-filter-btn');
+        const yearSelect = document.getElementById('galleryYearSelect');
+        const showMoreButton = document.getElementById('showMoreGallery');
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                activeGalleryCategory = button.dataset.category;
+                setActiveButton(buttons, button);
+                resetGalleryAndRender();
+            });
+        });
+
+        yearSelect.addEventListener('change', () => {
+            activeGalleryYear = yearSelect.value;
+            resetGalleryAndRender();
+        });
+
+        showMoreButton.addEventListener('click', () => {
+            galleryVisibleCount += galleryPageSize;
+            renderGallery();
+        });
+    }
+
+    function wireGalleryModal() {
+        const modal = document.getElementById('galleryModal');
+        const closeButton = document.getElementById('galleryModalClose');
+
+        closeButton.addEventListener('click', closeGalleryModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeGalleryModal();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeGalleryModal();
+            }
+        });
+    }
+
+    async function loadGallery() {
+        try {
+            const response = await fetch(galleryCsvUrl);
+            allImages = parseCsv(await response.text()).filter((image) => image.URL);
+            populateGalleryYears();
+            renderGallery();
+        } catch (error) {
+            document.getElementById('galleryGrid').innerHTML = '<div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">No s\'ha pogut carregar la galeria.</div>';
+            console.error('Error loading gallery:', error);
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        wireGalleryFilters();
+        wireGalleryModal();
+        loadGallery();
+    });
+
+</script>

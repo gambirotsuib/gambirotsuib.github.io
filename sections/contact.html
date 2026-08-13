@@ -1,0 +1,125 @@
+<section id="contact" class="bg-[#f0fbff] py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+            <div class="catalan-line mx-auto mb-6"></div>
+            <h2 class="section-title">Contacte</h2>
+            <p class="section-lead mt-5">Escriu-nos per venir a un assaig, demanar informació o proposar una col·laboració.</p>
+        </div>
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <form id="contactForm" class="card grid gap-5 p-6 sm:p-8">
+                <div>
+                    <label for="name" class="mb-2 block font-bold text-[#1d6f9a]">Nom</label>
+                    <input type="text" id="name" name="name" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                    <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-name">Aquest camp és obligatori.</p>
+                </div>
+                <div>
+                    <label for="email" class="mb-2 block font-bold text-[#1d6f9a]">Email</label>
+                    <input type="email" id="email" name="email" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                    <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-email">Aquest camp és obligatori.</p>
+                </div>
+                <div>
+                    <label for="subject" class="mb-2 block font-bold text-[#1d6f9a]">Assumpte</label>
+                    <select id="subject" name="subject" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                        <option value="">Selecciona un assumpte</option>
+                        <option value="join">Vull unir-me</option>
+                        <option value="event">Informació sobre calendari</option>
+                        <option value="collaboration">Col·laboració</option>
+                        <option value="other">Altres consultes</option>
+                    </select>
+                    <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-subject">Aquest camp és obligatori.</p>
+                </div>
+                <div>
+                    <label for="message" class="mb-2 block font-bold text-[#1d6f9a]">Missatge</label>
+                    <textarea id="message" name="message" rows="5" class="w-full rounded-md border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]"></textarea>
+                    <p class="mt-1 hidden text-sm font-semibold text-[#5fc0ec]" id="error-message">Aquest camp és obligatori.</p>
+                </div>
+                <button type="submit" class="btn-primary rounded-md px-7 py-4 font-extrabold transition">Enviar missatge</button>
+            </form>
+
+            <div class="grid content-start gap-5">
+                <div class="card p-6">
+                    <div class="flex gap-4">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#1d6f9a] text-white"><i class="fas fa-location-dot"></i></span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#1d6f9a]">On som?</h3>
+                            <p class="mt-2 leading-7 text-slate-600">Carrer de l'Ullastre<br>UIB</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <div class="flex gap-4">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#4bb6e8] text-white"><i class="fas fa-envelope"></i></span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#1d6f9a]">Email</h3>
+                            <p class="mt-2 leading-7 text-slate-600">gambirotsuib@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <div class="flex gap-4">
+                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#5fc0ec] text-white"><i class="fas fa-clock"></i></span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#1d6f9a]">Assajos</h3>
+                            <p class="mt-2 leading-7 text-slate-600">Dimecres i divendres<br>19:00 - 21:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <a href="https://www.instagram.com/gambirots/" target="_blank" rel="noreferrer" class="flex h-12 w-12 items-center justify-center rounded-md bg-[#1d6f9a] text-white transition hover:bg-[#5fc0ec]" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/gambirots" target="_blank" rel="noreferrer" class="flex h-12 w-12 items-center justify-center rounded-md bg-[#1d6f9a] text-white transition hover:bg-[#5fc0ec]" aria-label="X">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function wireContactForm() {
+        document.getElementById('contactForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const fields = [
+                { input: document.getElementById('name'), error: document.getElementById('error-name') },
+                { input: document.getElementById('email'), error: document.getElementById('error-email') },
+                { input: document.getElementById('subject'), error: document.getElementById('error-subject') },
+                { input: document.getElementById('message'), error: document.getElementById('error-message') }
+            ];
+            let valid = true;
+
+            fields.forEach(({ input, error }) => {
+                const empty = !input.value.trim();
+                input.classList.toggle('border-[#5fc0ec]', empty);
+                error.classList.toggle('hidden', !empty);
+                valid = valid && !empty;
+            });
+
+            if (!valid) {
+                return;
+            }
+
+            fetch('https://formspree.io/f/xeogdaaj', {
+                method: 'POST',
+                body: new FormData(event.target),
+                headers: { Accept: 'application/json' }
+            }).then((response) => {
+                if (response.ok) {
+                    window.location.href = 'thankyou.html';
+                } else {
+                    alert('Hi ha hagut un error. Si us plau, intenta-ho més tard.');
+                }
+            }).catch(() => {
+                alert('Hi ha hagut un error en enviar el formulari.');
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        wireContactForm();
+    });
+</script>
+
