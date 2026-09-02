@@ -23,11 +23,17 @@ url: https://gambirots.cat
 description: "Colla castellera universitària de la UIB. Assajos, actuacions, galeria, blog i contacte."
 
 defaults:
-  -
-    scope:
-      path: "" # all files in the project
+  - scope:
+      path: ""
+      type: "pages"
     values:
       layout: "default" # use default.html layout by default lol
+
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
 # Build settings
 plugins:
