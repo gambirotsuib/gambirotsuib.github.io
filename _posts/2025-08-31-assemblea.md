@@ -1,5 +1,5 @@
 ---
-title: "Assemblea dia 31 d'agost"
+title: "Assemblea general 2025"
 author: Mestre
 image: https://i.imgur.com/KBm2Sl3.jpeg
 ---
