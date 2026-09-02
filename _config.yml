@@ -21,6 +21,13 @@
 title: Gambirots de la UIB
 url: https://gambirotsuib.github.io
 
+defaults:
+  -
+    scope:
+      path: "" # all files in the project
+    values:
+      layout: "default" # use default.html layout by default lol
+
 # Build settings
 plugins:
   - jekyll-feed
@@ -44,3 +51,6 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+exclude:
+  - BUILD.md
+  - CNAME

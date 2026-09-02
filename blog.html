@@ -1,16 +1,148 @@
 ---
 ---
-<!DOCTYPE html>
-<html lang="ca">
-{% include_relative header.html %}
-<body>
-    {% include_relative nav.html %}
-    <main>
-        {% include_relative sections/news.html %}
-    </main>
 
-    {% include_relative footer.html %}
+<section id="news" class="bg-white py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div class="max-w-2xl">
+                <div class="catalan-line mb-6"></div>
+                <h2 class="section-title">Blog</h2>
+                <p class="section-lead mt-5">Les últimes notícies, cròniques i històries de la colla.</p>
+            </div>
+            <div id="blogSeasonWrap" class="hidden">
+                <label for="blogSeasonSelect" class="mb-2 block text-sm font-extrabold text-[#1d6f9a]">Temporada</label>
+                <select id="blogSeasonSelect" class="rounded-md border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-[#1d6f9a] focus:outline-none focus:ring-2 focus:ring-[#4bb6e8]">
+                    <option value="Totes">Totes les temporades</option>
+                </select>
+            </div>
+        </div>
+        <div id="blogPosts" class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
+            <div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">Carregant blog...</div>
+        </div>
+    </div>
+</section>
 
-</body>
-</html>
+<script>
+    const blogCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQrQylCz4i1hGkr9XB0pPl8rhlXwR92AcamEXMgfAfKGr-hlCZLssd1o7h1zMLL0c-Ji0kwfzcuph2R/pub?output=csv';
+    let allPosts = [];
+    let activeBlogSeason = 'Totes';
+
+    
+    function getPostSeason(post) {
+        const directSeason = safeText(post.Season || post.Temporada || post.Temporada);
+        if (directSeason) {
+            return directSeason;
+        }
+
+        const source = safeText(post.Date || post.Data);
+        const year = source.match(/\b(19\d{2}|20\d{2})\b/);
+        return year ? year[0] : 'Sense temporada';
+    }
+
+    function populateBlogSeasons() {
+        const wrap = document.getElementById('blogSeasonWrap');
+        const select = document.getElementById('blogSeasonSelect');
+        const seasons = [...new Set(allPosts.map(getPostSeason))]
+            .filter(Boolean)
+            .sort((a, b) => b.localeCompare(a, 'ca-ES'));
+
+        if (seasons.length <= 1) {
+            wrap.classList.add('hidden');
+            return;
+        }
+
+        wrap.classList.remove('hidden');
+        select.innerHTML = '<option value="Totes">Totes les temporades</option>';
+        seasons.forEach((season) => {
+            const option = document.createElement('option');
+            option.value = season;
+            option.textContent = season;
+            select.appendChild(option);
+        });
+    }
+
+    function renderBlogPosts(posts) {
+        const container = document.getElementById('blogPosts');
+        const filteredPosts = activeBlogSeason === 'Totes'
+            ? posts
+            : posts.filter((post) => getPostSeason(post) === activeBlogSeason);
+
+        container.innerHTML = '';
+
+        if (!filteredPosts.length) {
+            container.innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No hi ha entrades per a aquesta temporada.</div>';
+            return;
+        }
+
+        filteredPosts.forEach((post, index) => {
+            const card = document.createElement('article');
+            const bodyId = `post-body-${index}`;
+            const buttonId = `post-button-${index}`;
+            card.className = 'card overflow-hidden';
+            card.innerHTML = `
+                <div class="h-52 bg-[#f0fbff]">
+                    ${post.Image ? `<img src="${post.Image}" alt="${safeText(post.Title, 'Entrada del blog')}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">` : '<div class="flex h-full items-center justify-center text-5xl text-[#4bb6e8]"><i class="fas fa-newspaper"></i></div>'}
+                </div>
+                <div class="p-6">
+                    <div class="mb-4 flex items-center justify-between gap-4 text-sm font-bold text-slate-500">
+                        <span>${safeText(post.Date, safeText(post.Data, ''))}</span>
+                        <span>${safeText(post.Author, 'Gambirots')}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#1d6f9a]">${safeText(post.Title, 'Entrada')}</h3>
+                    <p class="mt-3 leading-7 text-slate-600">${safeText(post.Subtitle, '')}</p>
+                    <button type="button" onclick="togglePostBody('${bodyId}', '${buttonId}')" id="${buttonId}" class="mt-5 flex items-center font-extrabold text-[#4bb6e8]">
+                        Llegir més <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <div id="${bodyId}" class="max-h-0 overflow-hidden whitespace-pre-line pt-0 leading-7 text-slate-600 opacity-0 transition-all duration-500">
+                        ${safeText(post.Body, '')}
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function wireBlogSeasonFilter() {
+        const select = document.getElementById('blogSeasonSelect');
+        select.addEventListener('change', () => {
+            activeBlogSeason = select.value;
+            renderBlogPosts(allPosts);
+        });
+    }
+
+    function togglePostBody(bodyId, buttonId) {
+        const body = document.getElementById(bodyId);
+        const button = document.getElementById(buttonId);
+        const isExpanded = body.classList.contains('max-h-screen');
+
+        if (isExpanded) {
+            body.classList.remove('max-h-screen', 'pt-4', 'opacity-100');
+            body.classList.add('max-h-0', 'pt-0', 'opacity-0');
+            button.innerHTML = 'Llegir més <i class="fas fa-arrow-right ml-2"></i>';
+        } else {
+            body.classList.remove('max-h-0', 'pt-0', 'opacity-0');
+            body.classList.add('max-h-screen', 'pt-4', 'opacity-100');
+            button.innerHTML = 'Mostrar menys <i class="fas fa-arrow-up ml-2"></i>';
+        }
+    }
+
+    async function loadBlog() {
+        try {
+            const response = await fetch(blogCsvUrl);
+            allPosts = parseCsv(await response.text());
+            populateBlogSeasons();
+            renderBlogPosts(allPosts);
+        } catch (error) {
+            document.getElementById('blogPosts').innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No s\'ha pogut carregar el blog.</div>';
+            console.error('Error loading blog:', error);
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        wireBlogSeasonFilter();
+        loadBlog();
+    });
+    
+</script>
 
