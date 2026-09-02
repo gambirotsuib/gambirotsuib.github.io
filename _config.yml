@@ -19,7 +19,8 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Gambirots de la UIB
-url: https://gambirotsuib.github.io
+url: https://gambirots.cat
+description: "Colla castellera universitària de la UIB. Assajos, actuacions, galeria, blog i contacte."
 
 defaults:
   -
@@ -54,3 +55,5 @@ plugins:
 exclude:
   - BUILD.md
   - CNAME
+  - Gemfile
+  - Gemfile.lock
