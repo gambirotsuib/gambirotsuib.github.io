@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ page.title }} | Gambirots de la UIB</title>
+        {% if page.title %}
+        <title>{{ page.title }} | {{ site.title }}</title>
+        {% else %}
+        <title>{{ site.title }}</title>
+        {% endif %}
         <meta name="description" content="Colla castellera universitària de la UIB. Assajos, actuacions, galeria, blog i contacte.">
         <link rel="icon" type="image/png" href="/images/logopng.png">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -24,7 +28,7 @@
                 </a>
 
                 <div class="hidden items-center gap-7 md:flex">
-                    <a href="/index" class="nav-link text-sm font-bold">Inici</a>
+                    <a href="/" class="nav-link text-sm font-bold">Inici</a>
                     <div class="dropdown relative">
                         <button type="button" class="nav-link flex items-center gap-2 text-sm font-bold" aria-haspopup="true">
                             Apartats <i class="fas fa-chevron-down text-xs"></i>
@@ -62,7 +66,7 @@
 
             <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white md:hidden">
                 <div class="mx-auto grid max-w-7xl gap-2 px-4 py-4">
-                    <a href="/index#home" class="nav-link rounded-md px-3 py-2 font-bold">Inici</a>
+                    <a href="/#home" class="nav-link rounded-md px-3 py-2 font-bold">Inici</a>
                     <a href="/about#about" class="nav-link rounded-md px-3 py-2 font-bold">Qui som?</a>
                     <details class="rounded-md bg-[#f0fbff] px-3 py-2">
                         <summary class="cursor-pointer font-bold text-[#1d6f9a]">Organització</summary>
