@@ -1,4 +1,4 @@
-<section id="gallery" class="bg-[#eaf9ff] py-20 text-[#14384d] sm:py-24">
+<section class="bg-[#eaf9ff] py-20 text-[#14384d] sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
             <div class="max-w-2xl">
@@ -19,8 +19,15 @@
             </div>
         </div>
 
-        <div id="galleryGrid" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5" aria-live="polite">
-            <div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">Carregant galeria...</div>
+        <div id="galleryGrid" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {% for image in site.data.gallery %}
+            <article class="gallery-item group relative block w-full text-left overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]" data-category="{{ image.category }}" onclick="openGalleryModal(this)">
+                <img class="w-full" src="{{ image.url }}" alt="{{ image.text }}" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
+                <span class="gallery-overlay absolute inset-x-0 bottom-0 flex min-h-24 items-end p-4 opacity-100">
+                    <span class="text-sm font-bold leading-5 text-white">{{ image.text }}</span>
+                </span>
+            </article>
+            {% endfor %}
         </div>
 
         <div class="mt-8 flex flex-col items-center gap-4">
@@ -51,39 +58,26 @@
 </div>
 
 <script>
-    const galleryCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkQQcnyEORnlIc1dfaHcJGTxgsR8bjO1qX42nZHOIOpBNeLUV9CHkJJ8TLaMh_I3Z6n_JxNN97dJ_f/pub?output=csv';
-    
     const galleryPageSize = 5;
-    let allImages = [];
     let activeGalleryCategory = 'Totes';
     let activeGalleryYear = 'Tots';
     let galleryVisibleCount = galleryPageSize;
 
+    const allImages = Array.from(document.getElementsByClassName('gallery-item'));
+
     function getImageTitle(image) {
-        return safeText(
-            image.Title || image.Titol || image.Título || image.Titulo || image.Text,
-            safeText(image.Category, 'Fotografia')
-        );
+        return image.querySelector('img').alt;
     }
 
     function getImageDescription(image) {
-        return safeText(
-            image.Description || image.Descripcio || image.Descripción || image['Descripció'] || image.Text,
-            'Sense descripció disponible.'
-        );
+        return getImageTitle(image); // TODO
     }
     
-
     function getImageYear(image) {
-        const source = [
-            image.Year,
-            image.Any,
-            image.Anys,
-            image.Data,
-            image.Date,
-            image.Text
-        ].filter(Boolean).join(' ');
-        const match = String(source).match(/\b(19\d{2}|20\d{2})\b/);
+        if (image.dataset.year)
+            return image.dataset.year;
+
+        const match = getImageDescription(image).match(/\b(19\d{2}|20\d{2})\b/);
         return match ? match[0] : 'Sense any';
     }
 
@@ -92,7 +86,7 @@
             return true;
         }
 
-        return safeText(image.Category).toLocaleLowerCase('ca-ES') === category.toLocaleLowerCase('ca-ES');
+        return image.dataset.category.toLocaleLowerCase('ca-ES') === category.toLocaleLowerCase('ca-ES');
     }
 
     function getFilteredGallery() {
@@ -102,6 +96,7 @@
         });
     }
 
+    // TODO static year list
     function populateGalleryYears() {
         const select = document.getElementById('galleryYearSelect');
         const years = [...new Set(allImages.map(getImageYear))]
@@ -120,22 +115,25 @@
         });
     }
 
-    function openGalleryModal(image) {
+    function openGalleryModal(target) {
+        const image = target.querySelector('img');
+
         const modal = document.getElementById('galleryModal');
         const modalImage = document.getElementById('galleryModalImage');
         const modalMeta = document.getElementById('galleryModalMeta');
         const modalTitle = document.getElementById('galleryModalTitle');
         const modalDescription = document.getElementById('galleryModalDescription');
-        const title = getImageTitle(image);
-        const year = getImageYear(image);
-        const metaParts = [safeText(image.Category), year !== 'Sense any' ? year : ''].filter(Boolean);
 
-        modalImage.src = image.URL;
+        const title = getImageTitle(target);
+        const year = getImageYear(target);
+        const metaParts = [target.dataset.category, year !== 'Sense any' ? year : ''].filter(Boolean);
+
+        modalImage.src = image.src;
         modalImage.alt = title;
         modalImage.onerror = () => handleImageError(modalImage);
         modalMeta.textContent = metaParts.join(' · ');
         modalTitle.textContent = title;
-        modalDescription.textContent = getImageDescription(image);
+        modalDescription.textContent = getImageDescription(target);
 
         modal.classList.remove('hidden');
         modal.classList.add('flex');
@@ -170,22 +168,7 @@
             return;
         }
 
-        visibleImages.forEach((image) => {
-            const card = document.createElement('article');
-            const caption = safeText(image.Text, safeText(image.Category, 'Gambirots'));
-            const escapedCaption = escapeHtml(caption);
-            card.className = 'gallery-item overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]';
-            card.innerHTML = `
-                <button type="button" class="group relative block w-full overflow-hidden text-left" aria-label="Obrir ${escapedCaption}">
-                    <img src="${image.URL}" alt="${escapedCaption}" class="w-full" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
-                    <span class="gallery-overlay absolute inset-x-0 bottom-0 flex min-h-24 items-end p-4 opacity-100">
-                        <span class="text-sm font-bold leading-5 text-white">${escapedCaption}</span>
-                    </span>
-                </button>
-            `;
-            card.querySelector('button').addEventListener('click', () => openGalleryModal(image));
-            container.appendChild(card);
-        });
+        container.append(...visibleImages);
 
         status.textContent = `Mostrant ${visibleImages.length} de ${filteredImages.length} fotos`;
         showMoreButton.classList.toggle('hidden', galleryVisibleCount >= filteredImages.length);
@@ -237,22 +220,10 @@
         });
     }
 
-    async function loadGallery() {
-        try {
-            const response = await fetch(galleryCsvUrl);
-            allImages = parseCsv(await response.text()).filter((image) => image.URL);
-            populateGalleryYears();
-            renderGallery();
-        } catch (error) {
-            document.getElementById('galleryGrid').innerHTML = '<div class="rounded-md border border-[#bfeafa] bg-white p-8 text-center text-[#386276] sm:col-span-2 lg:col-span-5">No s\'ha pogut carregar la galeria.</div>';
-            console.error('Error loading gallery:', error);
-        }
-    }
-    
     document.addEventListener('DOMContentLoaded', () => {
         wireGalleryFilters();
         wireGalleryModal();
-        loadGallery();
+        populateGalleryYears();
+        renderGallery();
     });
-
 </script>
