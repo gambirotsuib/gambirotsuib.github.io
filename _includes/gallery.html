@@ -21,10 +21,10 @@
 
         <div id="galleryGrid" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {% for image in site.data.gallery %}
-            <article class="gallery-item group relative block w-full text-left overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]" data-category="{{ image.category }}" onclick="openGalleryModal(this)">
-                <img class="w-full" src="{{ image.url }}" alt="{{ image.text }}" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
+            <article class="gallery-item group relative block w-full text-left overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-[#bfeafa]" data-category="{{ image.category }}" data-title="{{ image.title }}" onclick="openGalleryModal(this)">
+                <img class="w-full" src="{{ image.url }}" alt="{{ image.title }}" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
                 <span class="gallery-overlay absolute inset-x-0 bottom-0 flex min-h-24 items-end p-4 opacity-100">
-                    <span class="text-sm font-bold leading-5 text-white">{{ image.text }}</span>
+                    <span class="text-sm font-bold leading-5 text-white">{{ image.title }}</span>
                 </span>
             </article>
             {% endfor %}
@@ -66,15 +66,15 @@
     const allImages = Array.from(document.getElementsByClassName('gallery-item'));
 
     function getImageTitle(image) {
-        return image.querySelector('img').alt;
+        return image.dataset.title;
     }
 
     function getImageDescription(image) {
-        return getImageTitle(image); // TODO
+        return image.dataset.description || getImageTitle(image);
     }
-    
+
     function getImageYear(image) {
-        if (image.dataset.year)
+        if (image.dataset.year) // TODO: use dataset year in csv
             return image.dataset.year;
 
         const match = getImageDescription(image).match(/\b(19\d{2}|20\d{2})\b/);
@@ -96,7 +96,6 @@
         });
     }
 
-    // TODO static year list
     function populateGalleryYears() {
         const select = document.getElementById('galleryYearSelect');
         const years = [...new Set(allImages.map(getImageYear))]
