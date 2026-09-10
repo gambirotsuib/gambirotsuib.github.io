@@ -23,3 +23,7 @@ Text...
 La línia d'`image` és opcional; si no en posau, apareixerà una imatge per
 defecte. És important que vos assegureu que la imatge sigui visible
 públicament, i que no tengui l'accés restringit.
+
+## Com afegir imatges a la galeria
+
+S'ha d'afegir una nova línia a `_data/gallery.csv`, seguint el format establert.
