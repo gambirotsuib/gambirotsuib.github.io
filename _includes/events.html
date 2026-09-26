@@ -13,13 +13,26 @@
             </div>
         </div>
         <div id="eventCards" class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-live="polite">
-            <div class="card p-8 text-center text-slate-600">Carregant calendari...</div>
+            {% for event in site.data.calendar %}
+            <article class="card overflow-hidden transition duration-300 hover:-translate-y-1">
+                <div class="h-52 bg-[#f0fbff]">
+                    <img src="{{ event.image }}" alt="{{ event.title | default: "Activitat de Gambirots" }}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">
+                </div>
+                <div class="p-6">
+                    <div class="mb-4 flex items-center justify-between gap-4 text-sm font-extrabold">
+                        <span class="text-[#5fc0ec]">09 DE SET.</span>
+                        <span class="text-slate-500">{{ event.time | default: "Hora pendent" }}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#1d6f9a]">{{ event.title | default: "Activitat de Gambirots" }}</h3>
+                    <p class="mt-3 leading-7 text-slate-600">{{ event.description | default: "Més informació pròximament." }}</p>
+                </div>
+            </article>
+            {% endfor %}
         </div>
     </div>
 </section>
 
 <script>
-    const eventCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFJZ32sZboqyWSPzPQfGLRnFc36mmiswyS6jmbCZKlQ_G8G-ER0wti_x7gq22V_MzQfEeLnLZ9ztPN/pub?output=csv';
     let allEvents = [];
 
     function filterAquestMes(events) {
@@ -52,63 +65,7 @@
         });
     }
 
-    async function loadEvents() {
-        try {
-            const response = await fetch(eventCsvUrl);
-            allEvents = parseCsv(await response.text());
-            const currentMonth = filterAquestMes(allEvents);
-            const upcoming = filterProxims(allEvents);
-            const buttons = document.querySelectorAll('.event-filter-btn');
-
-            if (currentMonth.length) {
-                renderEvents(currentMonth);
-                setActiveButton(buttons, document.getElementById('btn-mes'));
-            } else if (upcoming.length) {
-                renderEvents(upcoming);
-                setActiveButton(buttons, document.getElementById('btn-proxims'));
-            } else {
-                renderEvents(allEvents);
-                setActiveButton(buttons, document.getElementById('btn-tots'));
-            }
-        } catch (error) {
-            document.getElementById('eventCards').innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">No s\'ha pogut carregar el calendari.</div>';
-            console.error('Error loading events:', error);
-        }
-    }
-
-    function renderEvents(events) {
-        const container = document.getElementById('eventCards');
-        const sortedEvents = [...events].sort((a, b) => new Date(a.Date) - new Date(b.Date));
-        container.innerHTML = '';
-
-        if (!sortedEvents.length) {
-            container.innerHTML = '<div class="card p-8 text-center text-slate-600 md:col-span-2 lg:col-span-3">Ara mateix no hi ha activitats per a aquest filtre.</div>';
-            return;
-        }
-
-        sortedEvents.forEach((event) => {
-            const card = document.createElement('article');
-            card.className = 'card overflow-hidden transition duration-300 hover:-translate-y-1';
-            card.innerHTML = `
-                <div class="h-52 bg-[#f0fbff]">
-                    ${event.Image ? `<img src="${event.Image}" alt="${safeText(event.Title, 'Activitat de Gambirots')}" class="h-full w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)">` : '<div class="flex h-full items-center justify-center text-5xl text-[#4bb6e8]"><i class="fas fa-calendar-days"></i></div>'}
-                </div>
-                <div class="p-6">
-                    <div class="mb-4 flex items-center justify-between gap-4 text-sm font-extrabold">
-                        <span class="text-[#5fc0ec]">${formatDate(event.Date)}</span>
-                        <span class="text-slate-500">${safeText(event.Time, 'Hora pendent')}</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-[#1d6f9a]">${safeText(event.Title, 'Activitat')}</h3>
-                    <p class="mt-3 leading-7 text-slate-600">${safeText(event.Description, 'Més informació pròximament.')}</p>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-
     document.addEventListener('DOMContentLoaded', () => {
         wireEventFilters();
-        loadEvents();
     });
 </script>
