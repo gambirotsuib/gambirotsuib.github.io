@@ -20,7 +20,7 @@
                 </div>
                 <div class="p-6">
                     <div class="mb-4 flex items-center justify-between gap-4 text-sm font-extrabold">
-                        <span class="text-[#5fc0ec]">09 DE SET.</span>
+                        <span class="text-[#5fc0ec]">{{ event.date | default: "Dia pendent" }}</span>
                         <span class="text-slate-500">{{ event.time | default: "Hora pendent" }}</span>
                     </div>
                     <h3 class="text-2xl font-bold text-[#1d6f9a]">{{ event.title | default: "Activitat de Gambirots" }}</h3>
