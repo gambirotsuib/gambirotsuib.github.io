@@ -41,8 +41,8 @@ section {
 .hero {
     min-height: 78svh;
     background:
-        linear-gradient(90deg, rgba(240, 251, 255, 0.97) 0%, rgba(202, 238, 252, 0.88) 46%, rgba(255, 255, 255, 0.22) 100%),
-        url('images/fotoGrupStaMaria.jpg');
+        linear-gradient(90deg, rgba(240, 251, 255, 0.87) 0%, rgba(202, 238, 252, 0.78) 46%, rgba(255, 255, 255, 0.12) 100%),
+        url('images/fotoGrupAniv26.jpeg');
     background-position: center 42%;
     background-size: cover;
 }
@@ -182,8 +182,8 @@ section {
     .hero {
         min-height: 74svh;
         background:
-            linear-gradient(180deg, rgba(240, 251, 255, 0.94) 0%, rgba(194, 235, 251, 0.82) 100%),
-            url('images/fotoGrupStaMaria.jpg');
+            linear-gradient(180deg, rgba(240, 251, 255, 0.84) 0%, rgba(194, 235, 251, 0.72) 100%),
+            url('images/fotoGrupAniv26.jpeg');
         background-position: center 42%;
     }
 }
